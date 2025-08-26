@@ -1,0 +1,144 @@
+---
+title: "Limpieza"
+editor: visual
+format: 
+  html:
+    self-contained: true
+    code-fold: true
+    code-tools: true 
+lang: es 
+---
+
+## Limpieza Latinobarómetro
+
+```{r}
+#| label: Cargar paquetes
+#| include: false
+
+pacman::p_load(dplyr, sjmisc, car, sjlabelled, stargazer, haven, knitr)
+
+```
+
+```{r}
+#| label: Cargar datos
+#| include: false
+
+latbaro_2023 <- readRDS("C:/Users/jpdia/OneDrive/Desktop/Tesis/seminario de titulo/input/latinobarometro_2023.rds")
+
+```
+
+```{r}
+#| label: Filtrar bbdd y seleccionar variables
+#| include: false
+
+latbaro_2023 <- latbaro_2023 |> 
+  filter(idenpa == 152 )
+
+latbaro_filt <- latbaro_2023 |> 
+  select(P13ST_D, P13ST_E, P13ST_F, P13ST_G, P5STGBS, P6STGBS, P7ST, P60ST, P17ST,
+         P9STGBS, sexo, reedad, S1, S11, REEDUC_2, S2, P43STGBS_B, P16ST)
+
+
+```
+
+```{r}
+#| label: Limpieza variables
+#| include: false
+
+#1. Variables de confianza
+
+frq(latbaro_filt$P13ST_D)
+frq(latbaro_filt$P13ST_E)
+frq(latbaro_filt$P13ST_F)
+frq(latbaro_filt$P13ST_G)
+
+latbaro_filt = latbaro_filt %>% 
+  rename(conf_cong = P13ST_D,
+         conf_gob = P13ST_E,
+         conf_jud = P13ST_F,
+         conf_part = P13ST_G) %>% 
+ mutate(across(
+    .cols = c(conf_cong, conf_gob, conf_jud, conf_part),
+    .fns  = ~ as.numeric(.) |> 
+            car::recode("c(-2, -1) = NA") |> 
+            car::recode("1 = 4; 2 = 3; 3 = 2; 4 = 1")
+  )) |> 
+  na.omit()
+
+
+frq(latbaro_filt$conf_cong)
+frq(latbaro_filt$conf_gob)
+frq(latbaro_filt$conf_jud)
+frq(latbaro_filt$conf_part)
+
+##Valores recodificados: 1 = Ninguna; 2 = Poca; 3 = Algo; 4 = Mucha
+
+confianza_pol <- latbaro_filt |> 
+  descr(conf_cong, conf_gob, conf_jud, conf_part) 
+
+cv_confianza_pol <- (confianza_pol$sd / confianza_pol$mean) * 100
+cv_confianza_pol
+
+
+###Asimetría y CV aceptables
+
+#2. Variables de percepción situación económica
+
+frq(latbaro_filt$P5STGBS)
+frq(latbaro_filt$P6STGBS)
+frq(latbaro_filt$P7ST)
+
+
+latbaro_filt <- latbaro_filt |> 
+  rename(
+    sitecon_act  = P5STGBS,
+    sitecon_comp = P6STGBS,
+    sitecon_fut  = P7ST
+  ) %>%
+  mutate(across(
+    .cols = c(sitecon_act, sitecon_comp, sitecon_fut),
+    .fns  = ~ as.numeric(.) |> 
+            car::recode("c(-2, -1) = NA") |> 
+            car::recode("1 = 5; 2 = 4; 3 = 3; 4 = 2; 5 = 1")
+  )) |> 
+  na.omit()
+
+frq(latbaro_filt$sitecon_act)
+frq(latbaro_filt$sitecon_comp)
+frq(latbaro_filt$sitecon_fut)
+    
+##Valores recodificados:  1 = Mucho peor; 2 = Un poco peor; 3 = Igual; 4 = Un poco mejor; 5 = Mucho mejor
+
+sitecon <- latbaro_filt |> 
+  descr(sitecon_act, sitecon_comp, sitecon_fut) 
+sitecon
+
+cv_sitecon <- (sitecon$sd / sitecon$mean) * 100
+cv_sitecon
+
+###Asimetría y CV aceptables
+
+```
+
+```{r}
+#| label: Construcción indices
+#| include: false
+
+#1. Indice de confianza política
+
+##1.1 Correlacion
+
+cor(latbaro_filt %>% select(conf_cong, conf_gob, conf_jud, conf_part))
+
+##1.2 Construcción indice 
+
+latbaro_filt = latbaro_filt %>% 
+  rowwise() %>% #cada fila como "grupo" independiente
+  mutate(confpol = sum(conf_cong, conf_gob, conf_jud, conf_part)) %>% #Suma en cada fila las 4 variables indicadas
+  ungroup() 
+
+latbaro_filt |> 
+  descr(confpol)
+
+
+```

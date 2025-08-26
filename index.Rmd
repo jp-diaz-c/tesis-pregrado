@@ -1,29 +1,35 @@
 ---
-title: 'Título completo de la tesis o seminario de grado'
-subtitle: "Tesis para optar al grado de ...."
-author: "Mi nombre"
-date: "Fecha" # o para fecha actual: "`r Sys.Date()`"
+title: 'Confianza política, percepción del desempeño y confianza generalizada: un estudio empírico para el caso chileno'
+subtitle: "Informe Seminario de Título I"
+author: "Juan Pablo Díaz"
+date: "26/08/2025" # o para fecha actual: "`r Sys.Date()`"
 institution: "Universidad de Chile"
 degree: "Seminario / Memoria / Tesis de Grado - Carrera de Sociología"
-advisor: "Profesor/a guía: mi supervisor/a"
+advisor: "Profesor/a guía: Juan Carlos Castillo"
 bibliography: [tesis.bib]
+csl: apa.csl
 biblio-style: apalike
 link-citations: yes
 site: bookdown::bookdown_site
-output: bookdown::gitbook
+output: 
+  bookdown::gitbook:
+    split_bib: no
+    split_by: chapter
 documentclass: book
 fontsize: 14pt
 lof: True
 lot: True
-
+github-repo: "jp-diaz-c/tesis-pregrado"
+url: ""
+always_allow_html: true
 ---
 
 
 # Resumen {-}
 
-Resumen  aquí
+Pendiente
 
 
 # Agradecimientos {-}
 
-Agradecimientos aquí.
+Pendiente
