@@ -2,7 +2,7 @@
 title: 'Confianza política, percepción del desempeño y confianza generalizada: un estudio empírico para el caso chileno'
 subtitle: "Informe Seminario de Título I"
 author: "Juan Pablo Díaz"
-date: "26/08/2025" # o para fecha actual: "`r Sys.Date()`"
+date: "30/09/2025" # o para fecha actual: "`r Sys.Date()`"
 institution: "Universidad de Chile"
 degree: "Seminario / Memoria / Tesis de Grado - Carrera de Sociología"
 advisor: "Profesor/a guía: Juan Carlos Castillo"
