@@ -276,7 +276,7 @@ desempeño_confianza_multiple_inter <- lm(confpol ~ perc_sitecon * conf_gen_rec 
 #7.3 Tabla de regresión----
 
 nombres_modelos <-  c(
-  "Intercepto", "Perc situación económica", "Conf generalizada", "Perc desigualdad de ingresos", "Perc corrupción", "Sexo", "Grupo etario (26-40)", "Grupo etario: 41-60", "Grupo etario: > 61", "Religión: Católico", "Religión: No católico", "Universitario", "ESS: Clase Media", "ESS: Clase Alta/Media alta", "Perc situación económica X Conf generalizada", "Perc desigualdad de ingresos X Conf generalizada", "Perc corrupción X Conf generalizada")
+  "Intercepto", "Perc situación económica", "Perc desigualdad de ingresos", "Perc corrupción", "Conf.generalizada", "Sexo", "Grupo etario 26-40", "Grupo etario: 41-60", "Grupo etario: > 61", "Religión: Católico", "Religión: No católico", "Universitario", "ESS: Clase Media", "ESS: Clase Alta/Media alta", "Perc situación económica X Conf generalizada", "Perc desigualdad de ingresos X Conf generalizada", "Perc corrupción X Conf generalizada")
 
 
 sjPlot::tab_model(
@@ -294,7 +294,6 @@ sjPlot::tab_model(
 )
 
 ```
-
 
 
 
