@@ -2274,7 +2274,7 @@ vertical-align: -.125em;
 <span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>latbaro_descr<span class="sc">$</span>reduc_corrup_rec <span class="ot">&lt;-</span> <span class="fu">factor</span>(latbaro_descr<span class="sc">$</span>reduc_corrup_rec,</span>
 <span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>),</span>
 <span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Mucho/Algo&quot;</span>, <span class="st">&quot;Poco/Nada&quot;</span>))</span>
-<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>latbaro_descr<span class="sc">$</span>reduc_corrup_rec <span class="ot">&lt;-</span> <span class="fu">set_label</span>(latbaro_descr<span class="sc">$</span>reduc_corrup_rec, <span class="st">&quot;Progreso en reducir la corrupción política ultimos 2 años&quot;</span>)</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>latbaro_descr<span class="sc">$</span>reduc_corrup_rec <span class="ot">&lt;-</span> <span class="fu">set_label</span>(latbaro_descr<span class="sc">$</span>reduc_corrup_rec, <span class="st">&quot;Progreso en reducir la corrupción política&quot;</span>)</span>
 <span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a><span class="co">#3.4 Percepción desigualdad de ingresos----</span></span>
@@ -2360,13 +2360,17 @@ Type: Factor
 <span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>     <span class="at">missing =</span> <span class="st">&quot;no&quot;</span></span>
 <span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
 <span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bold_labels</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">modify_header</span>(label <span class="sc">~</span> <span class="st">&quot;**Variable**&quot;</span>) </span>
-<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>tabla_desc_df <span class="ot">&lt;-</span> tabla_descriptivos <span class="sc">|&gt;</span> </span>
-<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() </span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">modify_header</span>(label <span class="sc">~</span> <span class="st">&quot;**Variable**&quot;</span>) <span class="sc">|&gt;</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>   <span class="fu">modify_table_body</span>(</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>    <span class="sc">~</span> .x <span class="sc">|&gt;</span> </span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>      <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(stat_0))  <span class="co"># Eliminar filas donde stat_0 es NA</span></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>  )</span>
 <span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a> <span class="fu">saveRDS</span>(tabla_desc_df, <span class="at">file =</span> <span class="st">&quot;C:/Users/jpdia/OneDrive/Documents/GitHub/tesis-pregrado/IPO/output/tables/tabla_descriptiva.rds&quot;</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>tabla_desc_df <span class="ot">&lt;-</span> tabla_descriptivos <span class="sc">|&gt;</span> </span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() </span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a> <span class="fu">saveRDS</span>(tabla_desc_df, <span class="at">file =</span> <span class="st">&quot;C:/Users/jpdia/OneDrive/Documents/GitHub/tesis-pregrado/IPO/output/tables/tabla_descriptiva.rds&quot;</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell">
 <details class="code-fold">
@@ -2659,13 +2663,12 @@ Type: Factor
 <span id="cb27-25"><a href="#cb27-25" aria-hidden="true" tabindex="-1"></a>  <span class="at">show.se =</span> <span class="cn">TRUE</span>,</span>
 <span id="cb27-26"><a href="#cb27-26" aria-hidden="true" tabindex="-1"></a>  <span class="at">string.se =</span> <span class="st">&quot;**se**&quot;</span>,</span>
 <span id="cb27-27"><a href="#cb27-27" aria-hidden="true" tabindex="-1"></a>  <span class="at">pred.labels =</span> nombres_modelos,</span>
-<span id="cb27-28"><a href="#cb27-28" aria-hidden="true" tabindex="-1"></a>  <span class="at">title =</span> <span class="st">&quot;Tabla 2. Resultados modelos de regresión lineal MCO&quot;</span>,</span>
+<span id="cb27-28"><a href="#cb27-28" aria-hidden="true" tabindex="-1"></a>  <span class="at">title =</span> <span class="st">&quot;&quot;</span>,</span>
 <span id="cb27-29"><a href="#cb27-29" aria-hidden="true" tabindex="-1"></a>   <span class="at">file =</span> <span class="st">&quot;C:/Users/jpdia/OneDrive/Documents/GitHub/tesis-pregrado/IPO/output/tables/tabla_regresiones.html&quot;</span></span>
 <span id="cb27-30"><a href="#cb27-30" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
-<caption>Tabla 2. Resultados modelos de regresión lineal MCO</caption>
 <tbody>
 <tr class="odd">
 <td data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;"> </td>
@@ -3457,7 +3460,7 @@ Type: Factor
 <span id="cb29-80"><a href="#cb29-80" aria-hidden="true" tabindex="-1"></a>latbaro_descr<span class="sc">$</span>reduc_corrup_rec <span class="ot">&lt;-</span> <span class="fu">factor</span>(latbaro_descr<span class="sc">$</span>reduc_corrup_rec,</span>
 <span id="cb29-81"><a href="#cb29-81" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>),</span>
 <span id="cb29-82"><a href="#cb29-82" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Mucho/Algo&quot;</span>, <span class="st">&quot;Poco/Nada&quot;</span>))</span>
-<span id="cb29-83"><a href="#cb29-83" aria-hidden="true" tabindex="-1"></a>latbaro_descr<span class="sc">$</span>reduc_corrup_rec <span class="ot">&lt;-</span> <span class="fu">set_label</span>(latbaro_descr<span class="sc">$</span>reduc_corrup_rec, <span class="st">&quot;Progreso en reducir la corrupción política ultimos 2 años&quot;</span>)</span>
+<span id="cb29-83"><a href="#cb29-83" aria-hidden="true" tabindex="-1"></a>latbaro_descr<span class="sc">$</span>reduc_corrup_rec <span class="ot">&lt;-</span> <span class="fu">set_label</span>(latbaro_descr<span class="sc">$</span>reduc_corrup_rec, <span class="st">&quot;Progreso en reducir la corrupción política&quot;</span>)</span>
 <span id="cb29-84"><a href="#cb29-84" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb29-85"><a href="#cb29-85" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb29-86"><a href="#cb29-86" aria-hidden="true" tabindex="-1"></a><span class="co">#3.4 Percepción desigualdad de ingresos----</span></span>
@@ -3531,176 +3534,180 @@ Type: Factor
 <span id="cb29-154"><a href="#cb29-154" aria-hidden="true" tabindex="-1"></a>     <span class="at">missing =</span> <span class="st">&quot;no&quot;</span></span>
 <span id="cb29-155"><a href="#cb29-155" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
 <span id="cb29-156"><a href="#cb29-156" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bold_labels</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb29-157"><a href="#cb29-157" aria-hidden="true" tabindex="-1"></a>  <span class="fu">modify_header</span>(label <span class="sc">~</span> <span class="st">&quot;**Variable**&quot;</span>) </span>
-<span id="cb29-158"><a href="#cb29-158" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-159"><a href="#cb29-159" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-160"><a href="#cb29-160" aria-hidden="true" tabindex="-1"></a>tabla_desc_df <span class="ot">&lt;-</span> tabla_descriptivos <span class="sc">|&gt;</span> </span>
-<span id="cb29-161"><a href="#cb29-161" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() </span>
+<span id="cb29-157"><a href="#cb29-157" aria-hidden="true" tabindex="-1"></a>  <span class="fu">modify_header</span>(label <span class="sc">~</span> <span class="st">&quot;**Variable**&quot;</span>) <span class="sc">|&gt;</span></span>
+<span id="cb29-158"><a href="#cb29-158" aria-hidden="true" tabindex="-1"></a>   <span class="fu">modify_table_body</span>(</span>
+<span id="cb29-159"><a href="#cb29-159" aria-hidden="true" tabindex="-1"></a>    <span class="sc">~</span> .x <span class="sc">|&gt;</span> </span>
+<span id="cb29-160"><a href="#cb29-160" aria-hidden="true" tabindex="-1"></a>      <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(stat_0))  <span class="co"># Eliminar filas donde stat_0 es NA</span></span>
+<span id="cb29-161"><a href="#cb29-161" aria-hidden="true" tabindex="-1"></a>  )</span>
 <span id="cb29-162"><a href="#cb29-162" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-163"><a href="#cb29-163" aria-hidden="true" tabindex="-1"></a> <span class="fu">saveRDS</span>(tabla_desc_df, <span class="at">file =</span> <span class="st">&quot;C:/Users/jpdia/OneDrive/Documents/GitHub/tesis-pregrado/IPO/output/tables/tabla_descriptiva.rds&quot;</span>)</span>
-<span id="cb29-164"><a href="#cb29-164" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-165"><a href="#cb29-165" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb29-163"><a href="#cb29-163" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-164"><a href="#cb29-164" aria-hidden="true" tabindex="-1"></a>tabla_desc_df <span class="ot">&lt;-</span> tabla_descriptivos <span class="sc">|&gt;</span> </span>
+<span id="cb29-165"><a href="#cb29-165" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() </span>
 <span id="cb29-166"><a href="#cb29-166" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-167"><a href="#cb29-167" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-170"><a href="#cb29-170" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb29-171"><a href="#cb29-171" aria-hidden="true" tabindex="-1"></a><span class="co">#5. Calculo descriptivos variable dependiente según independientes----</span></span>
-<span id="cb29-172"><a href="#cb29-172" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-173"><a href="#cb29-173" aria-hidden="true" tabindex="-1"></a><span class="co">#5.1 Percepción situación económica ----</span></span>
-<span id="cb29-174"><a href="#cb29-174" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-175"><a href="#cb29-175" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-176"><a href="#cb29-176" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(latbaro_proc<span class="sc">$</span>confpol, latbaro_proc<span class="sc">$</span>perc_sitecon, <span class="at">method =</span> <span class="st">&quot;pearson&quot;</span>) </span>
-<span id="cb29-177"><a href="#cb29-177" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-178"><a href="#cb29-178" aria-hidden="true" tabindex="-1"></a><span class="co">#5.2 Percepción de la corrupción----</span></span>
+<span id="cb29-167"><a href="#cb29-167" aria-hidden="true" tabindex="-1"></a> <span class="fu">saveRDS</span>(tabla_desc_df, <span class="at">file =</span> <span class="st">&quot;C:/Users/jpdia/OneDrive/Documents/GitHub/tesis-pregrado/IPO/output/tables/tabla_descriptiva.rds&quot;</span>)</span>
+<span id="cb29-168"><a href="#cb29-168" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-169"><a href="#cb29-169" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb29-170"><a href="#cb29-170" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-171"><a href="#cb29-171" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-174"><a href="#cb29-174" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb29-175"><a href="#cb29-175" aria-hidden="true" tabindex="-1"></a><span class="co">#5. Calculo descriptivos variable dependiente según independientes----</span></span>
+<span id="cb29-176"><a href="#cb29-176" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-177"><a href="#cb29-177" aria-hidden="true" tabindex="-1"></a><span class="co">#5.1 Percepción situación económica ----</span></span>
+<span id="cb29-178"><a href="#cb29-178" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb29-179"><a href="#cb29-179" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-180"><a href="#cb29-180" aria-hidden="true" tabindex="-1"></a>latbaro_proc <span class="sc">|&gt;</span> </span>
-<span id="cb29-181"><a href="#cb29-181" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(reduc_corrup_rec) <span class="sc">|&gt;</span> </span>
-<span id="cb29-182"><a href="#cb29-182" aria-hidden="true" tabindex="-1"></a>  <span class="fu">descr</span>(confpol)</span>
+<span id="cb29-180"><a href="#cb29-180" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(latbaro_proc<span class="sc">$</span>confpol, latbaro_proc<span class="sc">$</span>perc_sitecon, <span class="at">method =</span> <span class="st">&quot;pearson&quot;</span>) </span>
+<span id="cb29-181"><a href="#cb29-181" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-182"><a href="#cb29-182" aria-hidden="true" tabindex="-1"></a><span class="co">#5.2 Percepción de la corrupción----</span></span>
 <span id="cb29-183"><a href="#cb29-183" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-184"><a href="#cb29-184" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(latbaro_proc<span class="sc">$</span>confpol, latbaro_proc<span class="sc">$</span>reduc_corrup_rec, <span class="at">method =</span> <span class="st">&quot;pearson&quot;</span>)</span>
-<span id="cb29-185"><a href="#cb29-185" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-186"><a href="#cb29-186" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-184"><a href="#cb29-184" aria-hidden="true" tabindex="-1"></a>latbaro_proc <span class="sc">|&gt;</span> </span>
+<span id="cb29-185"><a href="#cb29-185" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(reduc_corrup_rec) <span class="sc">|&gt;</span> </span>
+<span id="cb29-186"><a href="#cb29-186" aria-hidden="true" tabindex="-1"></a>  <span class="fu">descr</span>(confpol)</span>
 <span id="cb29-187"><a href="#cb29-187" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-188"><a href="#cb29-188" aria-hidden="true" tabindex="-1"></a><span class="co">#5.3 Percepción de la desigualdad de ingresos----</span></span>
+<span id="cb29-188"><a href="#cb29-188" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(latbaro_proc<span class="sc">$</span>confpol, latbaro_proc<span class="sc">$</span>reduc_corrup_rec, <span class="at">method =</span> <span class="st">&quot;pearson&quot;</span>)</span>
 <span id="cb29-189"><a href="#cb29-189" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-190"><a href="#cb29-190" aria-hidden="true" tabindex="-1"></a>latbaro_proc <span class="sc">|&gt;</span> </span>
-<span id="cb29-191"><a href="#cb29-191" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(just_distr_rec) <span class="sc">|&gt;</span> </span>
-<span id="cb29-192"><a href="#cb29-192" aria-hidden="true" tabindex="-1"></a>  <span class="fu">descr</span>(confpol)</span>
+<span id="cb29-190"><a href="#cb29-190" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-191"><a href="#cb29-191" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-192"><a href="#cb29-192" aria-hidden="true" tabindex="-1"></a><span class="co">#5.3 Percepción de la desigualdad de ingresos----</span></span>
 <span id="cb29-193"><a href="#cb29-193" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-194"><a href="#cb29-194" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(latbaro_proc<span class="sc">$</span>confpol, latbaro_proc<span class="sc">$</span>just_distr_rec, <span class="at">method =</span> <span class="st">&quot;pearson&quot;</span>)</span>
-<span id="cb29-195"><a href="#cb29-195" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-196"><a href="#cb29-196" aria-hidden="true" tabindex="-1"></a><span class="co">#5.4 Confianza generalizada----</span></span>
+<span id="cb29-194"><a href="#cb29-194" aria-hidden="true" tabindex="-1"></a>latbaro_proc <span class="sc">|&gt;</span> </span>
+<span id="cb29-195"><a href="#cb29-195" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(just_distr_rec) <span class="sc">|&gt;</span> </span>
+<span id="cb29-196"><a href="#cb29-196" aria-hidden="true" tabindex="-1"></a>  <span class="fu">descr</span>(confpol)</span>
 <span id="cb29-197"><a href="#cb29-197" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-198"><a href="#cb29-198" aria-hidden="true" tabindex="-1"></a>latbaro_proc <span class="sc">|&gt;</span> </span>
-<span id="cb29-199"><a href="#cb29-199" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(conf_gen_rec) <span class="sc">|&gt;</span> </span>
-<span id="cb29-200"><a href="#cb29-200" aria-hidden="true" tabindex="-1"></a>  <span class="fu">descr</span>(confpol)</span>
+<span id="cb29-198"><a href="#cb29-198" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(latbaro_proc<span class="sc">$</span>confpol, latbaro_proc<span class="sc">$</span>just_distr_rec, <span class="at">method =</span> <span class="st">&quot;pearson&quot;</span>)</span>
+<span id="cb29-199"><a href="#cb29-199" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-200"><a href="#cb29-200" aria-hidden="true" tabindex="-1"></a><span class="co">#5.4 Confianza generalizada----</span></span>
 <span id="cb29-201"><a href="#cb29-201" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-202"><a href="#cb29-202" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(latbaro_proc<span class="sc">$</span>confpol, latbaro_proc<span class="sc">$</span>conf_gen_rec, <span class="at">method =</span> <span class="st">&quot;pearson&quot;</span>)</span>
-<span id="cb29-203"><a href="#cb29-203" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-204"><a href="#cb29-204" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb29-202"><a href="#cb29-202" aria-hidden="true" tabindex="-1"></a>latbaro_proc <span class="sc">|&gt;</span> </span>
+<span id="cb29-203"><a href="#cb29-203" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(conf_gen_rec) <span class="sc">|&gt;</span> </span>
+<span id="cb29-204"><a href="#cb29-204" aria-hidden="true" tabindex="-1"></a>  <span class="fu">descr</span>(confpol)</span>
 <span id="cb29-205"><a href="#cb29-205" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-208"><a href="#cb29-208" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb29-209"><a href="#cb29-209" aria-hidden="true" tabindex="-1"></a><span class="co">#6. Crear matriz de correlaciones----</span></span>
-<span id="cb29-210"><a href="#cb29-210" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-211"><a href="#cb29-211" aria-hidden="true" tabindex="-1"></a><span class="co">#6.1 Crear objeto----</span></span>
-<span id="cb29-212"><a href="#cb29-212" aria-hidden="true" tabindex="-1"></a>correlaciones <span class="ot">&lt;-</span> <span class="fu">select</span>(latbaro_proc, confpol, perc_sitecon, reduc_corrup_rec, just_distr_rec, conf_gen_rec)</span>
-<span id="cb29-213"><a href="#cb29-213" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-214"><a href="#cb29-214" aria-hidden="true" tabindex="-1"></a>cor_mat <span class="ot">&lt;-</span> <span class="fu">cor</span>(correlaciones)</span>
-<span id="cb29-215"><a href="#cb29-215" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-216"><a href="#cb29-216" aria-hidden="true" tabindex="-1"></a>cor_df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(cor_mat)</span>
+<span id="cb29-206"><a href="#cb29-206" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(latbaro_proc<span class="sc">$</span>confpol, latbaro_proc<span class="sc">$</span>conf_gen_rec, <span class="at">method =</span> <span class="st">&quot;pearson&quot;</span>)</span>
+<span id="cb29-207"><a href="#cb29-207" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-208"><a href="#cb29-208" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb29-209"><a href="#cb29-209" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-212"><a href="#cb29-212" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb29-213"><a href="#cb29-213" aria-hidden="true" tabindex="-1"></a><span class="co">#6. Crear matriz de correlaciones----</span></span>
+<span id="cb29-214"><a href="#cb29-214" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-215"><a href="#cb29-215" aria-hidden="true" tabindex="-1"></a><span class="co">#6.1 Crear objeto----</span></span>
+<span id="cb29-216"><a href="#cb29-216" aria-hidden="true" tabindex="-1"></a>correlaciones <span class="ot">&lt;-</span> <span class="fu">select</span>(latbaro_proc, confpol, perc_sitecon, reduc_corrup_rec, just_distr_rec, conf_gen_rec)</span>
 <span id="cb29-217"><a href="#cb29-217" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-218"><a href="#cb29-218" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(cor_mat)</span>
+<span id="cb29-218"><a href="#cb29-218" aria-hidden="true" tabindex="-1"></a>cor_mat <span class="ot">&lt;-</span> <span class="fu">cor</span>(correlaciones)</span>
 <span id="cb29-219"><a href="#cb29-219" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-220"><a href="#cb29-220" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(cor_mat) <span class="ot">&lt;-</span> <span class="fu">rownames</span>(cor_mat) <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
-<span id="cb29-221"><a href="#cb29-221" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Conf. política&quot;</span>,</span>
-<span id="cb29-222"><a href="#cb29-222" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Perc. situación económica&quot;</span>,</span>
-<span id="cb29-223"><a href="#cb29-223" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Perc. corrupción &quot;</span>,</span>
-<span id="cb29-224"><a href="#cb29-224" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Perc. desigualdad&quot;</span>,</span>
-<span id="cb29-225"><a href="#cb29-225" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Conf. generalizada&quot;</span></span>
-<span id="cb29-226"><a href="#cb29-226" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb29-227"><a href="#cb29-227" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-228"><a href="#cb29-228" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">&quot;C:/Users/jpdia/OneDrive/Documents/GitHub/tesis-pregrado/IPO/output/graphs&quot;</span>)</span>
-<span id="cb29-229"><a href="#cb29-229" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-230"><a href="#cb29-230" aria-hidden="true" tabindex="-1"></a><span class="co">#6.2 Crear tabla----</span></span>
+<span id="cb29-220"><a href="#cb29-220" aria-hidden="true" tabindex="-1"></a>cor_df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(cor_mat)</span>
+<span id="cb29-221"><a href="#cb29-221" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-222"><a href="#cb29-222" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(cor_mat)</span>
+<span id="cb29-223"><a href="#cb29-223" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-224"><a href="#cb29-224" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(cor_mat) <span class="ot">&lt;-</span> <span class="fu">rownames</span>(cor_mat) <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb29-225"><a href="#cb29-225" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Conf. política&quot;</span>,</span>
+<span id="cb29-226"><a href="#cb29-226" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Perc. situación económica&quot;</span>,</span>
+<span id="cb29-227"><a href="#cb29-227" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Perc. corrupción &quot;</span>,</span>
+<span id="cb29-228"><a href="#cb29-228" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Perc. desigualdad&quot;</span>,</span>
+<span id="cb29-229"><a href="#cb29-229" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Conf. generalizada&quot;</span></span>
+<span id="cb29-230"><a href="#cb29-230" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb29-231"><a href="#cb29-231" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-232"><a href="#cb29-232" aria-hidden="true" tabindex="-1"></a><span class="fu">font_add</span>(<span class="st">&quot;Arial&quot;</span>, <span class="st">&quot;C:/Windows/Fonts/arial.ttf&quot;</span>)  </span>
-<span id="cb29-233"><a href="#cb29-233" aria-hidden="true" tabindex="-1"></a><span class="fu">showtext_auto</span>()  </span>
-<span id="cb29-234"><a href="#cb29-234" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-235"><a href="#cb29-235" aria-hidden="true" tabindex="-1"></a><span class="fu">png</span>(<span class="st">&quot;C:/Users/jpdia/OneDrive/Documents/GitHub/tesis-pregrado/IPO/output/graphs/corrplot.png&quot;</span>, <span class="at">width =</span> <span class="dv">800</span>, <span class="at">height =</span> <span class="dv">600</span>) </span>
-<span id="cb29-236"><a href="#cb29-236" aria-hidden="true" tabindex="-1"></a><span class="fu">corrplot</span>(cor_mat,</span>
-<span id="cb29-237"><a href="#cb29-237" aria-hidden="true" tabindex="-1"></a>         <span class="at">method =</span> <span class="st">&quot;color&quot;</span>,        </span>
-<span id="cb29-238"><a href="#cb29-238" aria-hidden="true" tabindex="-1"></a>         <span class="at">type =</span> <span class="st">&quot;lower&quot;</span>,          </span>
-<span id="cb29-239"><a href="#cb29-239" aria-hidden="true" tabindex="-1"></a>         <span class="at">addCoef.col =</span> <span class="st">&quot;black&quot;</span>,   </span>
-<span id="cb29-240"><a href="#cb29-240" aria-hidden="true" tabindex="-1"></a>         <span class="at">number.cex =</span> <span class="fl">0.8</span>,        </span>
-<span id="cb29-241"><a href="#cb29-241" aria-hidden="true" tabindex="-1"></a>         <span class="at">tl.col =</span> <span class="st">&quot;black&quot;</span>,        </span>
-<span id="cb29-242"><a href="#cb29-242" aria-hidden="true" tabindex="-1"></a>         <span class="at">tl.srt =</span> <span class="dv">45</span>,</span>
-<span id="cb29-243"><a href="#cb29-243" aria-hidden="true" tabindex="-1"></a>         <span class="at">tl.offset =</span> <span class="fl">0.5</span>,</span>
-<span id="cb29-244"><a href="#cb29-244" aria-hidden="true" tabindex="-1"></a>         <span class="at">col =</span> <span class="fu">colorRampPalette</span>(<span class="fu">c</span>(<span class="st">&quot;white&quot;</span>,<span class="st">&quot;skyblue&quot;</span>,<span class="st">&quot;blue&quot;</span>))(<span class="dv">200</span>), </span>
-<span id="cb29-245"><a href="#cb29-245" aria-hidden="true" tabindex="-1"></a>         <span class="at">diag =</span> <span class="cn">FALSE</span>,            </span>
-<span id="cb29-246"><a href="#cb29-246" aria-hidden="true" tabindex="-1"></a>         <span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">3</span>,<span class="dv">0</span>),</span>
-<span id="cb29-247"><a href="#cb29-247" aria-hidden="true" tabindex="-1"></a>         <span class="at">title =</span> <span class="st">&quot;Matriz de correlaciones&quot;</span></span>
-<span id="cb29-248"><a href="#cb29-248" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb29-249"><a href="#cb29-249" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>() </span>
-<span id="cb29-250"><a href="#cb29-250" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb29-251"><a href="#cb29-251" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-254"><a href="#cb29-254" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb29-255"><a href="#cb29-255" aria-hidden="true" tabindex="-1"></a><span class="co">#7. Calcular modelos----</span></span>
-<span id="cb29-256"><a href="#cb29-256" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-257"><a href="#cb29-257" aria-hidden="true" tabindex="-1"></a><span class="co">#7.1 Preparar variables----</span></span>
-<span id="cb29-258"><a href="#cb29-258" aria-hidden="true" tabindex="-1"></a>latbaro_proc<span class="sc">$</span>grupo_etario <span class="ot">&lt;-</span> <span class="fu">factor</span>(latbaro_proc<span class="sc">$</span>grupo_etario,</span>
-<span id="cb29-259"><a href="#cb29-259" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>),</span>
-<span id="cb29-260"><a href="#cb29-260" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;16-25&quot;</span>, <span class="st">&quot;26-40&quot;</span>, <span class="st">&quot;41-60&quot;</span>, <span class="st">&quot;61 y más&quot;</span>))</span>
-<span id="cb29-261"><a href="#cb29-261" aria-hidden="true" tabindex="-1"></a>latbaro_proc<span class="sc">$</span>religion <span class="ot">&lt;-</span> <span class="fu">factor</span>(latbaro_proc<span class="sc">$</span>religion,</span>
-<span id="cb29-262"><a href="#cb29-262" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>),</span>
-<span id="cb29-263"><a href="#cb29-263" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Ninguna/Ateo/Agnóstico&quot;</span>, <span class="st">&quot;Católica&quot;</span>, <span class="st">&quot;No católica&quot;</span>))</span>
-<span id="cb29-264"><a href="#cb29-264" aria-hidden="true" tabindex="-1"></a>latbaro_proc<span class="sc">$</span>estatus_subj<span class="ot">&lt;-</span> <span class="fu">factor</span>(latbaro_proc<span class="sc">$</span>estatus_subj,</span>
-<span id="cb29-265"><a href="#cb29-265" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>),</span>
-<span id="cb29-266"><a href="#cb29-266" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Clase Baja/Media baja&quot;</span>, <span class="st">&quot;Clase Media&quot;</span>, <span class="st">&quot;Clase Alta/Media alta&quot;</span>))</span>
-<span id="cb29-267"><a href="#cb29-267" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-268"><a href="#cb29-268" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-269"><a href="#cb29-269" aria-hidden="true" tabindex="-1"></a><span class="fu">freq</span>(latbaro_proc<span class="sc">$</span>estatus_subj)</span>
-<span id="cb29-270"><a href="#cb29-270" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-271"><a href="#cb29-271" aria-hidden="true" tabindex="-1"></a><span class="co">#7.2 Cálculo modelos----</span></span>
+<span id="cb29-232"><a href="#cb29-232" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">&quot;C:/Users/jpdia/OneDrive/Documents/GitHub/tesis-pregrado/IPO/output/graphs&quot;</span>)</span>
+<span id="cb29-233"><a href="#cb29-233" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-234"><a href="#cb29-234" aria-hidden="true" tabindex="-1"></a><span class="co">#6.2 Crear tabla----</span></span>
+<span id="cb29-235"><a href="#cb29-235" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-236"><a href="#cb29-236" aria-hidden="true" tabindex="-1"></a><span class="fu">font_add</span>(<span class="st">&quot;Arial&quot;</span>, <span class="st">&quot;C:/Windows/Fonts/arial.ttf&quot;</span>)  </span>
+<span id="cb29-237"><a href="#cb29-237" aria-hidden="true" tabindex="-1"></a><span class="fu">showtext_auto</span>()  </span>
+<span id="cb29-238"><a href="#cb29-238" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-239"><a href="#cb29-239" aria-hidden="true" tabindex="-1"></a><span class="fu">png</span>(<span class="st">&quot;C:/Users/jpdia/OneDrive/Documents/GitHub/tesis-pregrado/IPO/output/graphs/corrplot.png&quot;</span>, <span class="at">width =</span> <span class="dv">800</span>, <span class="at">height =</span> <span class="dv">600</span>) </span>
+<span id="cb29-240"><a href="#cb29-240" aria-hidden="true" tabindex="-1"></a><span class="fu">corrplot</span>(cor_mat,</span>
+<span id="cb29-241"><a href="#cb29-241" aria-hidden="true" tabindex="-1"></a>         <span class="at">method =</span> <span class="st">&quot;color&quot;</span>,        </span>
+<span id="cb29-242"><a href="#cb29-242" aria-hidden="true" tabindex="-1"></a>         <span class="at">type =</span> <span class="st">&quot;lower&quot;</span>,          </span>
+<span id="cb29-243"><a href="#cb29-243" aria-hidden="true" tabindex="-1"></a>         <span class="at">addCoef.col =</span> <span class="st">&quot;black&quot;</span>,   </span>
+<span id="cb29-244"><a href="#cb29-244" aria-hidden="true" tabindex="-1"></a>         <span class="at">number.cex =</span> <span class="fl">0.8</span>,        </span>
+<span id="cb29-245"><a href="#cb29-245" aria-hidden="true" tabindex="-1"></a>         <span class="at">tl.col =</span> <span class="st">&quot;black&quot;</span>,        </span>
+<span id="cb29-246"><a href="#cb29-246" aria-hidden="true" tabindex="-1"></a>         <span class="at">tl.srt =</span> <span class="dv">45</span>,</span>
+<span id="cb29-247"><a href="#cb29-247" aria-hidden="true" tabindex="-1"></a>         <span class="at">tl.offset =</span> <span class="fl">0.5</span>,</span>
+<span id="cb29-248"><a href="#cb29-248" aria-hidden="true" tabindex="-1"></a>         <span class="at">col =</span> <span class="fu">colorRampPalette</span>(<span class="fu">c</span>(<span class="st">&quot;white&quot;</span>,<span class="st">&quot;skyblue&quot;</span>,<span class="st">&quot;blue&quot;</span>))(<span class="dv">200</span>), </span>
+<span id="cb29-249"><a href="#cb29-249" aria-hidden="true" tabindex="-1"></a>         <span class="at">diag =</span> <span class="cn">FALSE</span>,            </span>
+<span id="cb29-250"><a href="#cb29-250" aria-hidden="true" tabindex="-1"></a>         <span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">3</span>,<span class="dv">0</span>),</span>
+<span id="cb29-251"><a href="#cb29-251" aria-hidden="true" tabindex="-1"></a>         <span class="at">title =</span> <span class="st">&quot;Matriz de correlaciones&quot;</span></span>
+<span id="cb29-252"><a href="#cb29-252" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb29-253"><a href="#cb29-253" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>() </span>
+<span id="cb29-254"><a href="#cb29-254" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb29-255"><a href="#cb29-255" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-258"><a href="#cb29-258" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb29-259"><a href="#cb29-259" aria-hidden="true" tabindex="-1"></a><span class="co">#7. Calcular modelos----</span></span>
+<span id="cb29-260"><a href="#cb29-260" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-261"><a href="#cb29-261" aria-hidden="true" tabindex="-1"></a><span class="co">#7.1 Preparar variables----</span></span>
+<span id="cb29-262"><a href="#cb29-262" aria-hidden="true" tabindex="-1"></a>latbaro_proc<span class="sc">$</span>grupo_etario <span class="ot">&lt;-</span> <span class="fu">factor</span>(latbaro_proc<span class="sc">$</span>grupo_etario,</span>
+<span id="cb29-263"><a href="#cb29-263" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>),</span>
+<span id="cb29-264"><a href="#cb29-264" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;16-25&quot;</span>, <span class="st">&quot;26-40&quot;</span>, <span class="st">&quot;41-60&quot;</span>, <span class="st">&quot;61 y más&quot;</span>))</span>
+<span id="cb29-265"><a href="#cb29-265" aria-hidden="true" tabindex="-1"></a>latbaro_proc<span class="sc">$</span>religion <span class="ot">&lt;-</span> <span class="fu">factor</span>(latbaro_proc<span class="sc">$</span>religion,</span>
+<span id="cb29-266"><a href="#cb29-266" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>),</span>
+<span id="cb29-267"><a href="#cb29-267" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Ninguna/Ateo/Agnóstico&quot;</span>, <span class="st">&quot;Católica&quot;</span>, <span class="st">&quot;No católica&quot;</span>))</span>
+<span id="cb29-268"><a href="#cb29-268" aria-hidden="true" tabindex="-1"></a>latbaro_proc<span class="sc">$</span>estatus_subj<span class="ot">&lt;-</span> <span class="fu">factor</span>(latbaro_proc<span class="sc">$</span>estatus_subj,</span>
+<span id="cb29-269"><a href="#cb29-269" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>),</span>
+<span id="cb29-270"><a href="#cb29-270" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Clase Baja/Media baja&quot;</span>, <span class="st">&quot;Clase Media&quot;</span>, <span class="st">&quot;Clase Alta/Media alta&quot;</span>))</span>
+<span id="cb29-271"><a href="#cb29-271" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb29-272"><a href="#cb29-272" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-273"><a href="#cb29-273" aria-hidden="true" tabindex="-1"></a>desempeño_simple <span class="ot">&lt;-</span> <span class="fu">lm</span>(confpol <span class="sc">~</span> perc_sitecon <span class="sc">+</span> just_distr_rec <span class="sc">+</span> reduc_corrup_rec, <span class="at">data =</span> latbaro_proc) </span>
+<span id="cb29-273"><a href="#cb29-273" aria-hidden="true" tabindex="-1"></a><span class="fu">freq</span>(latbaro_proc<span class="sc">$</span>estatus_subj)</span>
 <span id="cb29-274"><a href="#cb29-274" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-275"><a href="#cb29-275" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-276"><a href="#cb29-276" aria-hidden="true" tabindex="-1"></a>desempeño_confianza_simple <span class="ot">&lt;-</span> <span class="fu">lm</span>(confpol <span class="sc">~</span> perc_sitecon <span class="sc">+</span> just_distr_rec <span class="sc">+</span> reduc_corrup_rec <span class="sc">+</span> conf_gen_rec, <span class="at">data =</span> latbaro_proc)</span>
-<span id="cb29-277"><a href="#cb29-277" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-278"><a href="#cb29-278" aria-hidden="true" tabindex="-1"></a>desempeño_confianza_multiple <span class="ot">&lt;-</span> <span class="fu">lm</span>(confpol <span class="sc">~</span> perc_sitecon <span class="sc">+</span> just_distr_rec <span class="sc">+</span> reduc_corrup_rec <span class="sc">+</span> conf_gen_rec <span class="sc">+</span> sexo_mujer <span class="sc">+</span> grupo_etario <span class="sc">+</span> religion <span class="sc">+</span> nivel_educ_rec <span class="sc">+</span> estatus_subj, <span class="at">data =</span> latbaro_proc)</span>
+<span id="cb29-275"><a href="#cb29-275" aria-hidden="true" tabindex="-1"></a><span class="co">#7.2 Cálculo modelos----</span></span>
+<span id="cb29-276"><a href="#cb29-276" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-277"><a href="#cb29-277" aria-hidden="true" tabindex="-1"></a>desempeño_simple <span class="ot">&lt;-</span> <span class="fu">lm</span>(confpol <span class="sc">~</span> perc_sitecon <span class="sc">+</span> just_distr_rec <span class="sc">+</span> reduc_corrup_rec, <span class="at">data =</span> latbaro_proc) </span>
+<span id="cb29-278"><a href="#cb29-278" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb29-279"><a href="#cb29-279" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-280"><a href="#cb29-280" aria-hidden="true" tabindex="-1"></a>desempeño_confianza_multiple_inter <span class="ot">&lt;-</span> <span class="fu">lm</span>(confpol <span class="sc">~</span> perc_sitecon <span class="sc">*</span> conf_gen_rec <span class="sc">+</span> just_distr_rec <span class="sc">*</span> conf_gen_rec <span class="sc">+</span> reduc_corrup_rec <span class="sc">*</span> conf_gen_rec <span class="sc">+</span> sexo_mujer <span class="sc">+</span> grupo_etario <span class="sc">+</span> religion <span class="sc">+</span> nivel_educ_rec <span class="sc">+</span> estatus_subj, <span class="at">data =</span> latbaro_proc)</span>
+<span id="cb29-280"><a href="#cb29-280" aria-hidden="true" tabindex="-1"></a>desempeño_confianza_simple <span class="ot">&lt;-</span> <span class="fu">lm</span>(confpol <span class="sc">~</span> perc_sitecon <span class="sc">+</span> just_distr_rec <span class="sc">+</span> reduc_corrup_rec <span class="sc">+</span> conf_gen_rec, <span class="at">data =</span> latbaro_proc)</span>
 <span id="cb29-281"><a href="#cb29-281" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-282"><a href="#cb29-282" aria-hidden="true" tabindex="-1"></a><span class="co">#7.3 Tabla de regresión----</span></span>
+<span id="cb29-282"><a href="#cb29-282" aria-hidden="true" tabindex="-1"></a>desempeño_confianza_multiple <span class="ot">&lt;-</span> <span class="fu">lm</span>(confpol <span class="sc">~</span> perc_sitecon <span class="sc">+</span> just_distr_rec <span class="sc">+</span> reduc_corrup_rec <span class="sc">+</span> conf_gen_rec <span class="sc">+</span> sexo_mujer <span class="sc">+</span> grupo_etario <span class="sc">+</span> religion <span class="sc">+</span> nivel_educ_rec <span class="sc">+</span> estatus_subj, <span class="at">data =</span> latbaro_proc)</span>
 <span id="cb29-283"><a href="#cb29-283" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-284"><a href="#cb29-284" aria-hidden="true" tabindex="-1"></a>nombres_modelos <span class="ot">&lt;-</span>  <span class="fu">c</span>(</span>
-<span id="cb29-285"><a href="#cb29-285" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Intercepto&quot;</span>, <span class="st">&quot;Perc situación económica&quot;</span>, <span class="st">&quot;Perc desigualdad de ingresos&quot;</span>, <span class="st">&quot;Perc corrupción&quot;</span>, <span class="st">&quot;Conf.generalizada&quot;</span>, <span class="st">&quot;Sexo&quot;</span>, <span class="st">&quot;Grupo etario 26-40&quot;</span>, <span class="st">&quot;Grupo etario: 41-60&quot;</span>, <span class="st">&quot;Grupo etario: &gt; 61&quot;</span>, <span class="st">&quot;Religión: Católico&quot;</span>, <span class="st">&quot;Religión: No católico&quot;</span>, <span class="st">&quot;Universitario&quot;</span>, <span class="st">&quot;ESS: Clase Media&quot;</span>, <span class="st">&quot;ESS: Clase Alta/Media alta&quot;</span>, <span class="st">&quot;Perc situación económica X Conf generalizada&quot;</span>, <span class="st">&quot;Perc desigualdad de ingresos X Conf generalizada&quot;</span>, <span class="st">&quot;Perc corrupción X Conf generalizada&quot;</span>)</span>
-<span id="cb29-286"><a href="#cb29-286" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-284"><a href="#cb29-284" aria-hidden="true" tabindex="-1"></a>desempeño_confianza_multiple_inter <span class="ot">&lt;-</span> <span class="fu">lm</span>(confpol <span class="sc">~</span> perc_sitecon <span class="sc">*</span> conf_gen_rec <span class="sc">+</span> just_distr_rec <span class="sc">*</span> conf_gen_rec <span class="sc">+</span> reduc_corrup_rec <span class="sc">*</span> conf_gen_rec <span class="sc">+</span> sexo_mujer <span class="sc">+</span> grupo_etario <span class="sc">+</span> religion <span class="sc">+</span> nivel_educ_rec <span class="sc">+</span> estatus_subj, <span class="at">data =</span> latbaro_proc)</span>
+<span id="cb29-285"><a href="#cb29-285" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-286"><a href="#cb29-286" aria-hidden="true" tabindex="-1"></a><span class="co">#7.3 Tabla de regresión----</span></span>
 <span id="cb29-287"><a href="#cb29-287" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-288"><a href="#cb29-288" aria-hidden="true" tabindex="-1"></a>sjPlot<span class="sc">::</span><span class="fu">tab_model</span>(</span>
-<span id="cb29-289"><a href="#cb29-289" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>(desempeño_simple, desempeño_confianza_simple, desempeño_confianza_multiple, desempeño_confianza_multiple_inter),</span>
-<span id="cb29-290"><a href="#cb29-290" aria-hidden="true" tabindex="-1"></a>  <span class="at">show.ci=</span><span class="cn">FALSE</span>, </span>
-<span id="cb29-291"><a href="#cb29-291" aria-hidden="true" tabindex="-1"></a>  <span class="at">p.style =</span> <span class="st">&quot;stars&quot;</span>, </span>
-<span id="cb29-292"><a href="#cb29-292" aria-hidden="true" tabindex="-1"></a>  <span class="at">dv.labels =</span> <span class="fu">c</span>(<span class="st">&quot;Modelo 1&quot;</span>, <span class="st">&quot;Modelo 2&quot;</span>, <span class="st">&quot;Modelo 3&quot;</span>, <span class="st">&quot;Modelo 4&quot;</span>),</span>
-<span id="cb29-293"><a href="#cb29-293" aria-hidden="true" tabindex="-1"></a>  <span class="at">string.pred =</span> <span class="st">&quot;Predictores&quot;</span>, </span>
-<span id="cb29-294"><a href="#cb29-294" aria-hidden="true" tabindex="-1"></a>  <span class="at">string.est =</span> <span class="st">&quot;**$</span><span class="sc">\\</span><span class="st">beta$**&quot;</span>,</span>
-<span id="cb29-295"><a href="#cb29-295" aria-hidden="true" tabindex="-1"></a>  <span class="at">show.se =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb29-296"><a href="#cb29-296" aria-hidden="true" tabindex="-1"></a>  <span class="at">string.se =</span> <span class="st">&quot;**se**&quot;</span>,</span>
-<span id="cb29-297"><a href="#cb29-297" aria-hidden="true" tabindex="-1"></a>  <span class="at">pred.labels =</span> nombres_modelos,</span>
-<span id="cb29-298"><a href="#cb29-298" aria-hidden="true" tabindex="-1"></a>  <span class="at">title =</span> <span class="st">&quot;Tabla 2. Resultados modelos de regresión lineal MCO&quot;</span>,</span>
-<span id="cb29-299"><a href="#cb29-299" aria-hidden="true" tabindex="-1"></a>   <span class="at">file =</span> <span class="st">&quot;C:/Users/jpdia/OneDrive/Documents/GitHub/tesis-pregrado/IPO/output/tables/tabla_regresiones.html&quot;</span></span>
-<span id="cb29-300"><a href="#cb29-300" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb29-301"><a href="#cb29-301" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-302"><a href="#cb29-302" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb29-303"><a href="#cb29-303" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-304"><a href="#cb29-304" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-288"><a href="#cb29-288" aria-hidden="true" tabindex="-1"></a>nombres_modelos <span class="ot">&lt;-</span>  <span class="fu">c</span>(</span>
+<span id="cb29-289"><a href="#cb29-289" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Intercepto&quot;</span>, <span class="st">&quot;Perc situación económica&quot;</span>, <span class="st">&quot;Perc desigualdad de ingresos&quot;</span>, <span class="st">&quot;Perc corrupción&quot;</span>, <span class="st">&quot;Conf.generalizada&quot;</span>, <span class="st">&quot;Sexo&quot;</span>, <span class="st">&quot;Grupo etario 26-40&quot;</span>, <span class="st">&quot;Grupo etario: 41-60&quot;</span>, <span class="st">&quot;Grupo etario: &gt; 61&quot;</span>, <span class="st">&quot;Religión: Católico&quot;</span>, <span class="st">&quot;Religión: No católico&quot;</span>, <span class="st">&quot;Universitario&quot;</span>, <span class="st">&quot;ESS: Clase Media&quot;</span>, <span class="st">&quot;ESS: Clase Alta/Media alta&quot;</span>, <span class="st">&quot;Perc situación económica X Conf generalizada&quot;</span>, <span class="st">&quot;Perc desigualdad de ingresos X Conf generalizada&quot;</span>, <span class="st">&quot;Perc corrupción X Conf generalizada&quot;</span>)</span>
+<span id="cb29-290"><a href="#cb29-290" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-291"><a href="#cb29-291" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-292"><a href="#cb29-292" aria-hidden="true" tabindex="-1"></a>sjPlot<span class="sc">::</span><span class="fu">tab_model</span>(</span>
+<span id="cb29-293"><a href="#cb29-293" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>(desempeño_simple, desempeño_confianza_simple, desempeño_confianza_multiple, desempeño_confianza_multiple_inter),</span>
+<span id="cb29-294"><a href="#cb29-294" aria-hidden="true" tabindex="-1"></a>  <span class="at">show.ci=</span><span class="cn">FALSE</span>, </span>
+<span id="cb29-295"><a href="#cb29-295" aria-hidden="true" tabindex="-1"></a>  <span class="at">p.style =</span> <span class="st">&quot;stars&quot;</span>, </span>
+<span id="cb29-296"><a href="#cb29-296" aria-hidden="true" tabindex="-1"></a>  <span class="at">dv.labels =</span> <span class="fu">c</span>(<span class="st">&quot;Modelo 1&quot;</span>, <span class="st">&quot;Modelo 2&quot;</span>, <span class="st">&quot;Modelo 3&quot;</span>, <span class="st">&quot;Modelo 4&quot;</span>),</span>
+<span id="cb29-297"><a href="#cb29-297" aria-hidden="true" tabindex="-1"></a>  <span class="at">string.pred =</span> <span class="st">&quot;Predictores&quot;</span>, </span>
+<span id="cb29-298"><a href="#cb29-298" aria-hidden="true" tabindex="-1"></a>  <span class="at">string.est =</span> <span class="st">&quot;**$</span><span class="sc">\\</span><span class="st">beta$**&quot;</span>,</span>
+<span id="cb29-299"><a href="#cb29-299" aria-hidden="true" tabindex="-1"></a>  <span class="at">show.se =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb29-300"><a href="#cb29-300" aria-hidden="true" tabindex="-1"></a>  <span class="at">string.se =</span> <span class="st">&quot;**se**&quot;</span>,</span>
+<span id="cb29-301"><a href="#cb29-301" aria-hidden="true" tabindex="-1"></a>  <span class="at">pred.labels =</span> nombres_modelos,</span>
+<span id="cb29-302"><a href="#cb29-302" aria-hidden="true" tabindex="-1"></a>  <span class="at">title =</span> <span class="st">&quot;&quot;</span>,</span>
+<span id="cb29-303"><a href="#cb29-303" aria-hidden="true" tabindex="-1"></a>   <span class="at">file =</span> <span class="st">&quot;C:/Users/jpdia/OneDrive/Documents/GitHub/tesis-pregrado/IPO/output/tables/tabla_regresiones.html&quot;</span></span>
+<span id="cb29-304"><a href="#cb29-304" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb29-305"><a href="#cb29-305" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-308"><a href="#cb29-308" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb29-309"><a href="#cb29-309" aria-hidden="true" tabindex="-1"></a><span class="co">#8.Gráfico de coeficientes----</span></span>
-<span id="cb29-310"><a href="#cb29-310" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-311"><a href="#cb29-311" aria-hidden="true" tabindex="-1"></a>coeficientes <span class="ot">&lt;-</span> <span class="fu">plot_model</span>(desempeño_confianza_multiple, </span>
-<span id="cb29-312"><a href="#cb29-312" aria-hidden="true" tabindex="-1"></a>           <span class="at">type =</span> <span class="st">&quot;est&quot;</span>, </span>
-<span id="cb29-313"><a href="#cb29-313" aria-hidden="true" tabindex="-1"></a>           <span class="at">terms =</span> <span class="fu">c</span>(<span class="st">&quot;perc_sitecon&quot;</span>, <span class="st">&quot;just_distr_rec&quot;</span>, <span class="st">&quot;reduc_corrup_rec&quot;</span>, <span class="st">&quot;conf_gen_rec&quot;</span>), </span>
-<span id="cb29-314"><a href="#cb29-314" aria-hidden="true" tabindex="-1"></a>           <span class="at">show.values =</span> <span class="cn">TRUE</span>, </span>
-<span id="cb29-315"><a href="#cb29-315" aria-hidden="true" tabindex="-1"></a>           <span class="at">value.offset =</span> .<span class="dv">2</span>,</span>
-<span id="cb29-316"><a href="#cb29-316" aria-hidden="true" tabindex="-1"></a>           <span class="at">axis.labels =</span> <span class="fu">c</span>(<span class="st">&quot;Perc Situación económica&quot;</span>, <span class="st">&quot;Perc desigualdad de ingresos&quot;</span>, <span class="st">&quot;Perc corrupción&quot;</span>, <span class="st">&quot;Conf generalizada&quot;</span>),</span>
-<span id="cb29-317"><a href="#cb29-317" aria-hidden="true" tabindex="-1"></a>           <span class="at">axis.title =</span> <span class="st">&quot;β&quot;</span>,</span>
-<span id="cb29-318"><a href="#cb29-318" aria-hidden="true" tabindex="-1"></a>           <span class="at">title =</span> <span class="st">&quot;Comparación coeficientes modelo 3.&quot;</span>,</span>
-<span id="cb29-319"><a href="#cb29-319" aria-hidden="true" tabindex="-1"></a>           <span class="at">colors =</span> <span class="st">&quot;Black&quot;</span>,</span>
-<span id="cb29-320"><a href="#cb29-320" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb29-321"><a href="#cb29-321" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-322"><a href="#cb29-322" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-323"><a href="#cb29-323" aria-hidden="true" tabindex="-1"></a>coeficientes <span class="ot">&lt;-</span> coeficientes <span class="sc">+</span></span>
-<span id="cb29-324"><a href="#cb29-324" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
-<span id="cb29-325"><a href="#cb29-325" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">20</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>),       <span class="co"># título del gráfico</span></span>
-<span id="cb29-326"><a href="#cb29-326" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">16</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>),       <span class="co"># títulos ejes X e Y</span></span>
-<span id="cb29-327"><a href="#cb29-327" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>),        <span class="co"># etiquetas de ejes</span></span>
-<span id="cb29-328"><a href="#cb29-328" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">16</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>),     <span class="co"># título leyenda</span></span>
-<span id="cb29-329"><a href="#cb29-329" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>)       <span class="co"># texto de leyenda</span></span>
-<span id="cb29-330"><a href="#cb29-330" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb29-331"><a href="#cb29-331" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-332"><a href="#cb29-332" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">&quot;C:/Users/jpdia/OneDrive/Documents/GitHub/tesis-pregrado/IPO/output/graphs/coeficientes.png&quot;</span>, coeficientes, <span class="at">width =</span> <span class="dv">6</span>, <span class="at">height =</span> <span class="dv">4</span>, <span class="at">dpi =</span> <span class="dv">300</span>)</span>
-<span id="cb29-333"><a href="#cb29-333" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-334"><a href="#cb29-334" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb29-306"><a href="#cb29-306" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb29-307"><a href="#cb29-307" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-308"><a href="#cb29-308" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-309"><a href="#cb29-309" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-312"><a href="#cb29-312" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb29-313"><a href="#cb29-313" aria-hidden="true" tabindex="-1"></a><span class="co">#8.Gráfico de coeficientes----</span></span>
+<span id="cb29-314"><a href="#cb29-314" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-315"><a href="#cb29-315" aria-hidden="true" tabindex="-1"></a>coeficientes <span class="ot">&lt;-</span> <span class="fu">plot_model</span>(desempeño_confianza_multiple, </span>
+<span id="cb29-316"><a href="#cb29-316" aria-hidden="true" tabindex="-1"></a>           <span class="at">type =</span> <span class="st">&quot;est&quot;</span>, </span>
+<span id="cb29-317"><a href="#cb29-317" aria-hidden="true" tabindex="-1"></a>           <span class="at">terms =</span> <span class="fu">c</span>(<span class="st">&quot;perc_sitecon&quot;</span>, <span class="st">&quot;just_distr_rec&quot;</span>, <span class="st">&quot;reduc_corrup_rec&quot;</span>, <span class="st">&quot;conf_gen_rec&quot;</span>), </span>
+<span id="cb29-318"><a href="#cb29-318" aria-hidden="true" tabindex="-1"></a>           <span class="at">show.values =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb29-319"><a href="#cb29-319" aria-hidden="true" tabindex="-1"></a>           <span class="at">value.offset =</span> .<span class="dv">2</span>,</span>
+<span id="cb29-320"><a href="#cb29-320" aria-hidden="true" tabindex="-1"></a>           <span class="at">axis.labels =</span> <span class="fu">c</span>(<span class="st">&quot;Perc Situación económica&quot;</span>, <span class="st">&quot;Perc desigualdad de ingresos&quot;</span>, <span class="st">&quot;Perc corrupción&quot;</span>, <span class="st">&quot;Conf generalizada&quot;</span>),</span>
+<span id="cb29-321"><a href="#cb29-321" aria-hidden="true" tabindex="-1"></a>           <span class="at">axis.title =</span> <span class="st">&quot;β&quot;</span>,</span>
+<span id="cb29-322"><a href="#cb29-322" aria-hidden="true" tabindex="-1"></a>           <span class="at">title =</span> <span class="st">&quot;Comparación coeficientes modelo 3.&quot;</span>,</span>
+<span id="cb29-323"><a href="#cb29-323" aria-hidden="true" tabindex="-1"></a>           <span class="at">colors =</span> <span class="st">&quot;Black&quot;</span>,</span>
+<span id="cb29-324"><a href="#cb29-324" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb29-325"><a href="#cb29-325" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-326"><a href="#cb29-326" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-327"><a href="#cb29-327" aria-hidden="true" tabindex="-1"></a>coeficientes <span class="ot">&lt;-</span> coeficientes <span class="sc">+</span></span>
+<span id="cb29-328"><a href="#cb29-328" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb29-329"><a href="#cb29-329" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">20</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>),       <span class="co"># título del gráfico</span></span>
+<span id="cb29-330"><a href="#cb29-330" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">16</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>),       <span class="co"># títulos ejes X e Y</span></span>
+<span id="cb29-331"><a href="#cb29-331" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>),        <span class="co"># etiquetas de ejes</span></span>
+<span id="cb29-332"><a href="#cb29-332" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">16</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>),     <span class="co"># título leyenda</span></span>
+<span id="cb29-333"><a href="#cb29-333" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>)       <span class="co"># texto de leyenda</span></span>
+<span id="cb29-334"><a href="#cb29-334" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb29-335"><a href="#cb29-335" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-336"><a href="#cb29-336" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">&quot;C:/Users/jpdia/OneDrive/Documents/GitHub/tesis-pregrado/IPO/output/graphs/coeficientes.png&quot;</span>, coeficientes, <span class="at">width =</span> <span class="dv">6</span>, <span class="at">height =</span> <span class="dv">4</span>, <span class="at">dpi =</span> <span class="dv">300</span>)</span>
+<span id="cb29-337"><a href="#cb29-337" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-338"><a href="#cb29-338" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 </code><button title="Copiar al portapapeles" class="code-copy-button" data-in-quarto-modal><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

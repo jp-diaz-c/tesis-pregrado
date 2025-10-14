@@ -77,7 +77,7 @@ latbaro_descr$perc_sitecon <- set_label(latbaro_descr$perc_sitecon, "Indice de p
 latbaro_descr$reduc_corrup_rec <- factor(latbaro_descr$reduc_corrup_rec,
                                          levels = c(0, 1),
                                          labels = c("Mucho/Algo", "Poco/Nada"))
-latbaro_descr$reduc_corrup_rec <- set_label(latbaro_descr$reduc_corrup_rec, "Progreso en reducir la corrupción política ultimos 2 años")
+latbaro_descr$reduc_corrup_rec <- set_label(latbaro_descr$reduc_corrup_rec, "Progreso en reducir la corrupción política")
 
 
 #3.4 Percepción desigualdad de ingresos----
@@ -156,6 +156,9 @@ tabla_descriptivos <- tbl_summary(latbaro_descr,
 
 tabla_desc_df <- tabla_descriptivos |> 
   as_tibble() 
+
+tabla_desc_df <- tabla_desc_df |> 
+  mutate(across(everything(), ~replace(., is.na(.), "")))
 
  saveRDS(tabla_desc_df, file = "C:/Users/jpdia/OneDrive/Documents/GitHub/tesis-pregrado/IPO/output/tables/tabla_descriptiva.rds")
 
@@ -238,8 +241,7 @@ corrplot(cor_mat,
          tl.offset = 0.5,
          col = colorRampPalette(c("white","skyblue","blue"))(200), 
          diag = FALSE,            
-         mar = c(0,0,3,0),
-         title = "Matriz de correlaciones"
+         mar = c(0,0,3,0)
 )
 dev.off() 
 ```
@@ -289,7 +291,7 @@ sjPlot::tab_model(
   show.se = TRUE,
   string.se = "**se**",
   pred.labels = nombres_modelos,
-  title = "Tabla 2. Resultados modelos de regresión lineal MCO",
+  title = "",
    file = "C:/Users/jpdia/OneDrive/Documents/GitHub/tesis-pregrado/IPO/output/tables/tabla_regresiones.html"
 )
 
@@ -308,8 +310,8 @@ coeficientes <- plot_model(desempeño_confianza_multiple,
            value.offset = .2,
            axis.labels = c("Perc Situación económica", "Perc desigualdad de ingresos", "Perc corrupción", "Conf generalizada"),
            axis.title = "β",
-           title = "Comparación coeficientes modelo 3.",
            colors = "Black",
+           title = ""
 )
 
 
