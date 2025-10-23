@@ -1,9 +1,8 @@
+# Antecedentes conceptuales y empíricos
 
 ```{r echo=FALSE}
 knitr::opts_chunk$set(out.width="80%", fig.pos = "!ht", out.extra = "")
 ```
-
-# Antecedentes conceptuales y empíricos
 
 ## Confianza política
 
@@ -30,7 +29,6 @@ Teniendo en cuenta estas consideraciones, se presenta la primera hipótesis de l
 
   - *H1: La percepción de la situación económica del país se relaciona positivamente con la confianza política. Es decir, los ciudadanos que evalúen de mejor forma la situación económica del país tendrán un mayor nivel de confianza política que los ciudadanos que evalúen de peor forma esta situación.* 
 
-
 ### Corrupción 
 
 Junto con el desempeño económico, la literatura ha destacado la importancia de la relación entre la corrupción y la confianza política. En concordancia con otras investigaciones, el concepto de corrupción se entiende como "el uso indebido del cargo público para beneficio privado"[^3] [@sandholtzAccountingCorruptionEconomic2000, p.32]. A partir de esta definición es posible afirmar que este fenómeno socava principios básicos de la democracia, como son la transparencia en la toma de decisiones, la justicia e imparcialidad en la aplicación de leyes y el acceso equitativo al proceso político -como participante directo o como beneficiario- [@andersonCorruptionPoliticalAllegiances2003]. En contraste con estos ideales normativos, la corrupción entrega ventajas a unos sobre otros, debilitando así la creencia de que las instituciones y sus ocupantes actúan en beneficio del interés general y no orientados hacia intereses particulares [@beesleyCorruptionInstitutionalTrust2022; @uslanerCorruptionInequalityTrap2013]. Inicialmente, el mal uso de los recursos públicos y de las ventajas asociadas a posiciones al interior del aparato político-estatal puede ser atribuible a la deshonestidad de algunos funcionarios, lo que no implicaría necesariamente una peor evaluación de las instituciones políticas. Sin embargo, la regularización de episodios de este tipo a lo largo del tiempo llevaría a que los ciudadanos perciban estos comportamientos como parte del funcionamiento de las instituciones y, por tanto, disminuiría la confianza que depositan en estas [@beesleyCorruptionInstitutionalTrust2022]. En este sentido, los individuos que identifican el mal uso de fondos públicos para fines privados como una práctica recurrente al interior de una institución, van a calificar a esta de deshonesta e injusta, tendiendo a confiar menos en ella [@uslanerCorruptionInequalityTrap2013].
@@ -53,11 +51,9 @@ A partir de los antecedentes expuestos, se plantea la tercera hipótesis de la i
 
   - *H3: La percepción de la desigualdad de ingresos se relaciona negativamente con la confianza política. Esto significa que los ciudadanos que perciban una mayor desigualdad de ingresos en el país van a tener un menor nivel de confianza política respecto a los ciudadanos que perciban una menor desigualdad de ingresos.*
 
-
 ## Confianza generalizada
 
 Frente a la importancia que en el apartado anterior se le atribuyó a la percepción del desempeño institucional en la construcción de confianza política es necesario hacer una salvedad: este vínculo no se percibe con la misma intensidad en todos los ciudadanos. Por el contrario, este efecto se encuentra condicionado por diferencias en los valores, en las expectativas y en la atribución de responsabilidades entre los sujetos que evalúan [@vandermeerEconomicPerformancePolitical2018; @vandermeerPoliticalTrustEvaluation2017] [^4]. Tomando en cuenta el potencial analítico del estudio sobre el condicionamiento que estos distintos factores podrían tener en la confianza que los individuos depositan sobre las instituciones, resulta problemática la escasa atención que se le ha dado a la confianza generalizada como un posible moderador de la percepción del desempeño. En la gran mayoría de las investigaciones, la relación entre confianza generalizada y confianza política se ha estudiado exclusivamente de forma directa, es decir, asumiendo que los individuos que confían más en los otros confiarían en mayor grado en sus instituciones [@boothLegitimacyPuzzleLatin2009; @mainwaringStateDeficienciesParty2006; @mattesSocialPoliticalTrust2018; @morrisCorruptionTrustTheoretical2010; @zmerliWinnersLosersThree2013]. Lo anterior se sustenta sobre una concepción de la confianza en los otros como el producto de un cálculo racional llevado a cabo a partir de la experiencia acumulada sobre la confiabilidad de las otras personas [@newtonSocialPoliticalTrust2017]. Durante este apartado se argumentará que estas investigaciones han malentendido la naturaleza de la confianza generalizada, lo que les ha llevado a ignorar el potencial de este tipo de confianza como moderadora de la relación entre confianza política y evaluación del desempeño.
-
 
 Uslaner [-@uslanerMoralFoundationsTrust2002; -@uslanerStudyTrust2017] amplía el debate sobre la confianza argumentando que el tipo de vínculo racionalmente orientado que se describió en el apartado anterior, al cual va a llamar confianza estratégica, es solo uno de los tipos de confianza. Para el autor, este tipo, que presupone la existencia de una experiencia previa que funciona como información sobre la conducta del objeto en el que se deposita la confianza, solo permite explicar por qué los individuos confían en personas que conocen o que son como ellos mismos (ya sea por lazos de clase, étnicos o religiosos).  Sin embargo, esta no permite explicar por qué los individuos confían en desconocidos, es decir, en personas ajenas, que probablemente no se parecen a ellos, y de los cuales no tienen ninguna evidencia o información que les permita predecir su comportamiento o actitud. Esta disposición a confiar en desconocidos no es sobre un cálculo racional sino que, por el contrario, descansa sobre una confianza moral, es decir, sobre la base de una convicción de que los otros comparten sus propios valores y, por ende, son parte del mismo universo moral. 
 
@@ -87,7 +83,7 @@ A modo de ilustración, en la Figura \@ref(fig:grafico-1) se presenta un esquema
 
 ```{r grafico-1, fig.align='center', fig.cap="Esquema de presentación de hipótesis. Se omite la hipótesis 5. Fuente: Elaboración propia.", echo=FALSE}
 
-knitr::include_graphics("C:/Users/jpdia/OneDrive/Documents/GitHub/tesis-pregrado/IPO/output/graphs/hipotesis_tesis.png")
+knitr::include_graphics("IPO/output/graphs/hipotesis_tesis.png")
 
 ```
 

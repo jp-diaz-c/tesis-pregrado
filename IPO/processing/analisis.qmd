@@ -52,7 +52,7 @@ latbaro_proc <- readRDS("C:/Users/jpdia/OneDrive/Documents/GitHub/tesis-pregrado
 colnames(latbaro_proc)
 
 latbaro_descr <- latbaro_proc |> 
-  select(confpol,perc_sitecon, reduc_corrup_rec, just_distr_rec, conf_gen_rec, sexo_mujer, grupo_etario, religion, nivel_educ_rec, estatus_subj)
+  select(confpol, conf_gen_rec, perc_sitecon, reduc_corrup_rec, just_distr_rec, sexo_mujer, edad, religion, nivel_educ_rec, estatus_subj, partpol)
 
 latbaro_descr <- as.data.frame(latbaro_descr)
 
@@ -67,12 +67,19 @@ latbaro_descr$confpol <- set_label(latbaro_descr$confpol, "Indice de confianza p
 
 #¿cuánta confianza tiene usted en ellas: mucha (1), algo (2), poca (3) o ninguna (4) confianza en...? 
 
-#3.2 Situación económica----
+#3.2 Confianza generalizada----
+
+latbaro_descr$conf_gen_rec <- factor(latbaro_descr$conf_gen_rec,
+                                         levels = c(0, 1),
+                                         labels = c("Uno nunca es lo suficientemente cuidadoso en el trato con los demás", "Se puede confiar en la mayoría de las personas"))
+latbaro_descr$conf_gen_rec <- set_label(latbaro_descr$conf_gen_rec, "Confianza generalizada")
+
+#3.3 Situación económica----
 
 latbaro_descr$perc_sitecon <- set_label(latbaro_descr$perc_sitecon, "Indice de percepción de la situación económica")
 
 
-#3.3 Percepción de corrupción----
+#3.4 Percepción de corrupción----
 
 latbaro_descr$reduc_corrup_rec <- factor(latbaro_descr$reduc_corrup_rec,
                                          levels = c(0, 1),
@@ -80,19 +87,12 @@ latbaro_descr$reduc_corrup_rec <- factor(latbaro_descr$reduc_corrup_rec,
 latbaro_descr$reduc_corrup_rec <- set_label(latbaro_descr$reduc_corrup_rec, "Progreso en reducir la corrupción política")
 
 
-#3.4 Percepción desigualdad de ingresos----
+#3.5 Percepción desigualdad de ingresos----
 
 latbaro_descr$just_distr_rec <- factor(latbaro_descr$just_distr_rec,
                                          levels = c(0, 1),
                                          labels = c("Muy justa/Justa", "Injusta/Muy injusta"))
 latbaro_descr$just_distr_rec <- set_label(latbaro_descr$just_distr_rec, "Justicia en la distribución de ingresos")
-
-#3.5 Confianza generalizada----
-
-latbaro_descr$conf_gen_rec <- factor(latbaro_descr$conf_gen_rec,
-                                         levels = c(0, 1),
-                                         labels = c("Uno nunca es lo suficientemente cuidadoso en el trato con los demás", "Se puede confiar en la mayoría de las personas"))
-latbaro_descr$conf_gen_rec <- set_label(latbaro_descr$conf_gen_rec, "Confianza generalizada")
 
 
 #3.6 Variables de control----
@@ -103,10 +103,7 @@ latbaro_descr$sexo_mujer <- factor(latbaro_descr$sexo_mujer,
 latbaro_descr$sexo_mujer <- set_label(latbaro_descr$sexo_mujer, "Sexo")
 
 
-latbaro_descr$grupo_etario <- factor(latbaro_descr$grupo_etario,
-                                         levels = c(1, 2, 3, 4),
-                                         labels = c("16-25", "26-40", "41-60", "61 y más"))
-latbaro_descr$grupo_etario <- set_label(latbaro_descr$grupo_etario, "Grupo etario")
+latbaro_descr$edad <- set_label(latbaro_descr$edad, "Edad")
 
 
 latbaro_descr$religion <- factor(latbaro_descr$religion,
@@ -122,13 +119,26 @@ latbaro_descr$nivel_educ_rec <- factor(latbaro_descr$nivel_educ_rec,
 latbaro_descr$nivel_educ_rec <- set_label(latbaro_descr$nivel_educ_rec, "Nivel educacional")
 
 
+ 
+
 latbaro_descr$estatus_subj <- factor(latbaro_descr$estatus_subj,
                                          levels = c(1, 2, 3),
                                          labels = c("Clase Baja/Media baja", "Clase Media", "Clase Media alta/Alta"))
+
 latbaro_descr$estatus_subj <- set_label(latbaro_descr$estatus_subj, "Estatus social subjetivo")
 
 
 freq(latbaro_descr$estatus_subj)
+
+
+latbaro_descr$partpol <- factor(latbaro_descr$partpol,
+                                         levels = c(1, 2, 3),
+                                         labels = c("Gobierno", "Oposición", "Otro/No menciona partido"))
+
+latbaro_descr$partpol <- set_label(latbaro_descr$partpol, "Pertenencia partidaria")
+
+
+
 
 
 ```
@@ -207,7 +217,7 @@ cor.test(latbaro_proc$confpol, latbaro_proc$conf_gen_rec, method = "pearson")
 #6. Crear matriz de correlaciones----
 
 #6.1 Crear objeto----
-correlaciones <- select(latbaro_proc, confpol, perc_sitecon, reduc_corrup_rec, just_distr_rec, conf_gen_rec)
+correlaciones <- select(latbaro_proc, confpol, conf_gen_rec, perc_sitecon, reduc_corrup_rec, just_distr_rec, )
 
 cor_mat <- cor(correlaciones)
 
@@ -217,10 +227,10 @@ colnames(cor_mat)
 
 colnames(cor_mat) <- rownames(cor_mat) <- c(
   "Conf. política",
+  "Conf. generalizada",
   "Perc. situación económica",
   "Perc. corrupción ",
-  "Perc. desigualdad",
-  "Conf. generalizada"
+  "Perc. desigualdad"
 )
 
 setwd("C:/Users/jpdia/OneDrive/Documents/GitHub/tesis-pregrado/IPO/output/graphs")
@@ -250,39 +260,32 @@ dev.off()
 
 #7. Calcular modelos----
 
-#7.1 Preparar variables----
-latbaro_proc$grupo_etario <- factor(latbaro_proc$grupo_etario,
-                                         levels = c(1, 2, 3, 4),
-                                         labels = c("16-25", "26-40", "41-60", "61 y más"))
-latbaro_proc$religion <- factor(latbaro_proc$religion,
-                                         levels = c(1, 2, 3),
-                                         labels = c("Ninguna/Ateo/Agnóstico", "Católica", "No católica"))
-latbaro_proc$estatus_subj<- factor(latbaro_proc$estatus_subj,
-                                         levels = c(1, 2, 3),
-                                         labels = c("Clase Baja/Media baja", "Clase Media", "Clase Alta/Media alta"))
+confianza_simple <- lm(confpol ~ conf_gen_rec, data = latbaro_proc) 
 
 
-freq(latbaro_proc$estatus_subj)
+desempeño_confianza_simple <- lm(confpol ~ + conf_gen_rec + perc_sitecon + just_distr_rec + reduc_corrup_rec, data = latbaro_proc)
 
-#7.2 Cálculo modelos----
+desempeño_confianza_multiple <- lm(confpol ~ conf_gen_rec + perc_sitecon + just_distr_rec + reduc_corrup_rec + sexo_mujer + edad + religion + nivel_educ_rec + estatus_subj + partpol, data = latbaro_proc)
 
-desempeño_simple <- lm(confpol ~ perc_sitecon + just_distr_rec + reduc_corrup_rec, data = latbaro_proc) 
+desempeño_confianza_multiple_inter <- lm(confpol ~ perc_sitecon * conf_gen_rec + just_distr_rec * conf_gen_rec + reduc_corrup_rec * conf_gen_rec + sexo_mujer + edad + religion + nivel_educ_rec + estatus_subj + partpol, data = latbaro_proc)
 
 
-desempeño_confianza_simple <- lm(confpol ~ perc_sitecon + just_distr_rec + reduc_corrup_rec + conf_gen_rec, data = latbaro_proc)
+#Interacciones por separado
 
-desempeño_confianza_multiple <- lm(confpol ~ perc_sitecon + just_distr_rec + reduc_corrup_rec + conf_gen_rec + sexo_mujer + grupo_etario + religion + nivel_educ_rec + estatus_subj, data = latbaro_proc)
+inter1 <- lm(confpol ~ perc_sitecon * conf_gen_rec + just_distr_rec + reduc_corrup_rec + sexo_mujer + edad + religion + nivel_educ_rec + estatus_subj + partpol, data = latbaro_proc)
 
-desempeño_confianza_multiple_inter <- lm(confpol ~ perc_sitecon * conf_gen_rec + just_distr_rec * conf_gen_rec + reduc_corrup_rec * conf_gen_rec + sexo_mujer + grupo_etario + religion + nivel_educ_rec + estatus_subj, data = latbaro_proc)
+inter2 <- lm(confpol ~ perc_sitecon + just_distr_rec * conf_gen_rec + reduc_corrup_rec + sexo_mujer + edad + religion + nivel_educ_rec + estatus_subj + partpol, data = latbaro_proc)
+
+inter3 <- lm(confpol ~ perc_sitecon + just_distr_rec + reduc_corrup_rec * conf_gen_rec + sexo_mujer + edad + religion + nivel_educ_rec + estatus_subj + partpol, data = latbaro_proc)
 
 #7.3 Tabla de regresión----
 
 nombres_modelos <-  c(
-  "Intercepto", "Perc situación económica", "Perc desigualdad de ingresos", "Perc corrupción", "Conf.generalizada", "Sexo", "Grupo etario 26-40", "Grupo etario: 41-60", "Grupo etario: > 61", "Religión: Católico", "Religión: No católico", "Universitario", "ESS: Clase Media", "ESS: Clase Alta/Media alta", "Perc situación económica X Conf generalizada", "Perc desigualdad de ingresos X Conf generalizada", "Perc corrupción X Conf generalizada")
+  "Intercepto", "Conf generalizada", "Perc situación económica", "Perc desigualdad de ingresos", "Perc corrupción", "Sexo", "Edad", "Religión: Católico", "Religión: No católico", "Universitario", "ESS: Clase Media", "ESS: Clase Alta/Media alta", "Partido: Oposición", "Partido: Otro/No menciona", "Perc situación económica X Conf generalizada", "Perc desigualdad de ingresos X Conf generalizada", "Perc corrupción X Conf generalizada")
 
 
 sjPlot::tab_model(
-  list(desempeño_simple, desempeño_confianza_simple, desempeño_confianza_multiple, desempeño_confianza_multiple_inter),
+  list(confianza_simple, desempeño_confianza_simple, desempeño_confianza_multiple, desempeño_confianza_multiple_inter),
   show.ci=FALSE, 
   p.style = "stars", 
   dv.labels = c("Modelo 1", "Modelo 2", "Modelo 3", "Modelo 4"),
@@ -292,7 +295,7 @@ sjPlot::tab_model(
   string.se = "**se**",
   pred.labels = nombres_modelos,
   title = "",
-   file = "C:/Users/jpdia/OneDrive/Documents/GitHub/tesis-pregrado/IPO/output/tables/tabla_regresiones.html"
+  file = "C:/Users/jpdia/OneDrive/Documents/GitHub/tesis-pregrado/IPO/output/tables/tabla_regresiones.html"
 )
 
 ```
@@ -305,10 +308,10 @@ sjPlot::tab_model(
 
 coeficientes <- plot_model(desempeño_confianza_multiple, 
            type = "est", 
-           terms = c("perc_sitecon", "just_distr_rec", "reduc_corrup_rec", "conf_gen_rec"), 
+           terms = c("conf_gen_rec", "perc_sitecon", "reduc_corrup_rec", "just_distr_rec"), 
            show.values = TRUE, 
            value.offset = .2,
-           axis.labels = c("Perc Situación económica", "Perc desigualdad de ingresos", "Perc corrupción", "Conf generalizada"),
+           axis.labels = c("Perc corrupción", "Perc desigualdad de ingresos","Perc situación económica", "Conf generalizada"),
            axis.title = "β",
            colors = "Black",
            title = ""

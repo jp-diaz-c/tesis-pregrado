@@ -4,8 +4,7 @@
 
 ```{r, echo=FALSE}
 
-tabla_descriptivos <- readRDS("C:/Users/jpdia/OneDrive/Documents/GitHub/tesis-pregrado/IPO/output/tables/tabla_descriptiva.rds")
-
+tabla_descriptivos <- readRDS("IPO/output/tables/tabla_descriptiva.rds")
 
 ```
 
@@ -34,7 +33,7 @@ En la Tabla \@ref(tab:tabla-1) se presentan las estadísticas descriptivas de la
 
 ```{r grafico-2, fig.width=8, fig.height=6, out.width='100%', fig.align='center', fig.cap="Matriz de correlaciones entre las variables principales del estudio. Fuente: Elaboración propia en base a Latinobarometro 2023.", echo=FALSE}
 
-knitr::include_graphics("C:/Users/jpdia/OneDrive/Documents/GitHub/tesis-pregrado/IPO/output/graphs/corrplot.png")
+knitr::include_graphics("IPO/output/graphs/corrplot.png")
 
 ```
 
@@ -49,11 +48,10 @@ cat('<table>
   <caption>(#tab:tabla-regresiones) Resultados modelos de regresión lineal MCO</caption>
 </table>')
 
-cat(readLines("C:/Users/jpdia/OneDrive/Documents/GitHub/tesis-pregrado/IPO/output/tables/tabla_regresiones.html"), sep = "\n")
+cat(readLines("IPO/output/tables/tabla_regresiones.html"), sep = "\n")
 
 ```
 <p style="font-size: 0.9em; font-style: italic;"> Fuente: Elaboración propia en base a Latinobarómetro 2023. N = 1,200 </p> 
-
 
 
 Cómo se puede observar en la Tabla \@ref(tab:tabla-regresiones), se construyeron un total de cuatro modelos de regresión lineal siguiendo una estrategia incremental, en la cual se van incorporando nuevos términos a la regresión para comprobar si se mantienen los efectos percibidos. Siguiendo esta lógica, el Modelo 1 se calculó solo con las variables de percepción del desempeño. Luego, en los Modelos 2 y 3 se introdujeron, respectivamente, la variable de confianza generalizada y las variables de control. Por último, en el Modelo 4 se añadieron los términos de interacción.
@@ -62,7 +60,7 @@ Examinando los resultados de los primeros dos modelos, se observa que tanto las 
 
 ```{r grafico-3, fig.width= 8, fig.height=6, out.width='100%', fig.align='center', fig.cap="Comparación coeficientes de regresión Modelo 3. Fuente: Elaboración propia en base a Latinobarómetro 2023.", echo=FALSE}
 
-knitr::include_graphics("C:/Users/jpdia/OneDrive/Documents/GitHub/tesis-pregrado/IPO/output/graphs/coeficientes.png")
+knitr::include_graphics("IPO/output/graphs/coeficientes.png")
 
 ```
 
