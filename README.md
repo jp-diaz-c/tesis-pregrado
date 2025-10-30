@@ -4,4 +4,4 @@ La presente investigación corresponde a una tesis para optar al grado de Soció
 
 # Archivos
 
-[Presentación coloquio 2025]<https://jp-diaz-c.github.io/tesis-pregrado/presentations/coloquio-2025/coloquio-2025.html#/>
+[Presentación coloquio](https://jp-diaz-c.github.io/tesis-pregrado/presentations/coloquio-2025/coloquio-2025.html)
