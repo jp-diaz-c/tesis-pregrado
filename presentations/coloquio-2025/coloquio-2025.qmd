@@ -91,11 +91,11 @@ editor_options:
 
 
 - **Objetivos específicos**:
-  - Analizar el rol de la percepción del desempeño institucional en la confianza política de los ciudadanos chilenos.
+  - Analizar el rol de la **percepción del desempeño institucional** en la confianza política de los ciudadanos chilenos.
 
-  - Examinar el rol de la confianza generalizada en la confianza política de los ciudadanos chilenos.
+  - Examinar el rol de la **confianza generalizada** en la confianza política de los ciudadanos chilenos.
 
-  - Explorar si varía o no la relación entre la percepción del desempeño institucional y la confianza política al moderar por el nivel de confianza generalizada de los ciudadanos chilenos.
+  - Explorar si varía o no la relación entre la percepción del desempeño institucional y la confianza política al **moderar**  por el nivel de confianza generalizada de los ciudadanos chilenos.
 
 
 
@@ -107,7 +107,7 @@ editor_options:
 
 ::: {.incremental .highlight-last style="font-size: 97%;"}
 
-- Confianza de tipo **estratégica** que se puede resumir en la fórmula "A confia en B para haga *x*" [@hardinWeWantTrust1999, p.26]. La decisión de confiar implica un riesgo, por lo que se toma sobre la base de información sobre el objeto de confianza.
+- Confianza de tipo **estratégica** que se puede resumir en la fórmula "A confia en B para que haga *x*" [@hardinWeWantTrust1999, p.26]. La decisión de confiar implica un riesgo, por lo que se toma sobre la base de información sobre el objeto de confianza.
 
   - **Desempeño económico**: los ciudadanos evaluarían sus instituciones en función de la capacidad que estas tienen de satisfacer sus expectativas de **incremento en los estándares de vida de la población** [@thomassenSupportDemocraticValues1998; @mcallisterEconomicPerformanceGovernments1999; @quarantaDoesEconomyReally2016].
 
