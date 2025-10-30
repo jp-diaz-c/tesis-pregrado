@@ -1,6 +1,6 @@
 ---
-title: 'Confianza política, percepción del desempeño y confianza generalizada: un estudio empírico para el caso chileno'
-subtitle: "Informe Seminario de Título I"
+title: 'Factores asociados a la confianza política: una aproximación empírica a partir del caso chileno'
+subtitle: "Informe Seminario de Título II"
 author: "Juan Pablo Díaz"
 date: "`r Sys.Date()`" # o para fecha actual: "`r Sys.Date()`"
 institution: "Universidad de Chile"
