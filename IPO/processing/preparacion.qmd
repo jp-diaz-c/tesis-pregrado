@@ -87,7 +87,6 @@ frq(latbaro_filt$P6STGBS)
 frq(latbaro_filt$P7STGBS)
 frq(latbaro_filt$P8ST)
 
-
 latbaro_filt <- latbaro_filt |> 
   rename(
     sitecon_act  = P6STGBS,
@@ -104,6 +103,16 @@ latbaro_filt <- latbaro_filt |>
 frq(latbaro_filt$sitecon_act)
 frq(latbaro_filt$sitecon_comp)
 frq(latbaro_filt$sitecon_fut)
+
+latbaro_filt <- latbaro_filt |> 
+  mutate(
+    sitecon_full = sitecon_act |> 
+      as.numeric() |> 
+      car::recode("c(1, 2) = 1; 3 = 2; c(4, 5) = 3") |> 
+      as_factor()
+  ) 
+
+frq(latbaro_filt$sitecon_full)
     
 ##Valores recodificados:  1 = Mucho peor; 2 = Un poco peor; 3 = Igual; 4 = Un poco mejor; 5 = Mucho mejor
 
@@ -133,6 +142,8 @@ descr(latbaro_filt$reduc_corrup_rec)
 ##Recodificación: 1 = Mucho/Algo; 0 = Poco/Nada
 
 ###Asimetría aceptable
+
+
 
 #4.3 Percepción de la distribución de ingresos ----
 
@@ -251,6 +262,8 @@ frq(latbaro_filt$religion)
 
 #5.4 Nivel educacional----
 
+frq(latbaro_filt$S11)
+
 frq(latbaro_filt$REEDUC.1)
 
 latbaro_filt <- latbaro_filt |> 
@@ -342,7 +355,9 @@ frq(latbaro_filt$sin_ideopol_rec)
 colnames(latbaro_filt)
 
 latbaro_filt <- latbaro_filt |> 
-  select(-c(P55ST, P17ST, P10STGBS, S1, S11, REEDUC.1, S2, reduc_corrup_2, reduc_corrup_NA, just_distr_2, just_distr_NA, conf_gen_2, conf_gen_NA, SEXO_1, nivel_educ_2, sin_ideopol, sin_ideopol_1, sin_ideopol_NA))
+  select(-c(P55ST, P17ST, P10STGBS, S1, S2, reduc_corrup_2, reduc_corrup_NA, just_distr_2, just_distr_NA, conf_gen_2, conf_gen_NA, SEXO_1, nivel_educ_2, sin_ideopol, sin_ideopol_1, sin_ideopol_NA))
+
+colnames(latbaro_filt)
 
 latbaro_filt <- na.omit(latbaro_filt)
 

@@ -37,7 +37,9 @@ pacman::p_load(sjmisc,
                showtext,
                broom,
                interactions,
-               viridis)
+               viridis,
+               lmtest,
+               sandwich)
 
 #1. Cargar datos----
 
@@ -54,7 +56,7 @@ latbaro_proc <- readRDS("C:/Users/jpdia/OneDrive/Documents/GitHub/tesis-pregrado
 colnames(latbaro_proc)
 
 latbaro_descr <- latbaro_proc |> 
-  select(confpol, perc_sitecon, reduc_corrup_rec, just_distr_rec, conf_gen_rec, sexo_mujer, edad, religion, nivel_educ_rec, estatus_subj, partpol, ideopol, sin_ideopol_rec)
+  select(confpol, perc_sitecon, reduc_corrup_rec, just_distr_rec, conf_gen_rec, sexo_mujer, edad, religion, nivel_educ_rec, estatus_subj)
 
 latbaro_descr <- as.data.frame(latbaro_descr)
 
@@ -78,7 +80,7 @@ latbaro_descr$conf_gen_rec <- set_label(latbaro_descr$conf_gen_rec, "Confianza g
 
 #3.3 Situación económica----
 
-latbaro_descr$perc_sitecon <- set_label(latbaro_descr$perc_sitecon, "Indice de percepción de la situación económica nacional")
+latbaro_descr$perc_sitecon <- set_label(latbaro_descr$perc_sitecon, "Percepción de la situación económica nacional")
 
 
 #3.4 Percepción de corrupción----
@@ -139,22 +141,6 @@ latbaro_descr$estatus_subj <- set_label(latbaro_descr$estatus_subj, "Estatus soc
 freq(latbaro_descr$estatus_subj)
 
 
-latbaro_descr$partpol <- factor(latbaro_descr$partpol,
-                                         levels = c(1, 2, 3),
-                                         labels = c("Oficialismo", "Oposición", "Otro/No menciona partido"))
-
-latbaro_descr$partpol <- set_label(latbaro_descr$partpol, "Pertenencia partidaria")
-
-latbaro_descr$ideopol <- set_label(latbaro_descr$ideopol, "Posición eje izquierda-derecha")
-
-latbaro_descr$sin_ideopol_rec <- factor(latbaro_descr$sin_ideopol_rec,
-                                         levels = c(0,1),
-                                         labels = c("Se posiciona en el eje izquierda-derecha", "No se posiciona en el eje izquierda-derecha"))
-
-latbaro_descr$sin_ideopol_rec <- set_label(latbaro_descr$sin_ideopol_rec, "Identificación con el eje Izquierda_derecha")
-
-frq(latbaro_descr$sin_ideopol_rec)
-
  saveRDS(latbaro_descr, file = "C:/Users/jpdia/OneDrive/Documents/GitHub/tesis-pregrado/IPO/input/proc/latbaro_descr.rds")
 
 
@@ -163,6 +149,9 @@ frq(latbaro_descr$sin_ideopol_rec)
 ```{r results='asis'}
 
 #4. Crear tabla----
+
+
+
 
 setwd("C:/Users/jpdia/OneDrive/Documents/GitHub/tesis-pregrado/IPO")
 
@@ -438,36 +427,26 @@ dev.off()
 
 #7. Calcular modelos----
 
-desempeño_simple <- lm(confpol ~ perc_sitecon + reduc_corrup_rec + just_distr_rec, data = latbaro_proc) 
+desempeño_simple <- lm(confpol ~ perc_sitecon + reduc_corrup_rec + just_distr_rec, data = latbaro_proc)  
 
 desempeño_confianza_simple <- lm(confpol ~ perc_sitecon + reduc_corrup_rec + just_distr_rec + conf_gen_rec, data = latbaro_proc)
 
-desempeño_confianza_multiple <- lm(confpol ~ perc_sitecon + reduc_corrup_rec + just_distr_rec + conf_gen_rec + sexo_mujer + grupo_etario + religion + nivel_educ_rec + estatus_subj + partpol + ideopol + sin_ideopol_rec, data = latbaro_proc)
+desempeño_confianza_multiple <- lm(confpol ~ perc_sitecon + reduc_corrup_rec + just_distr_rec + conf_gen_rec + sexo_mujer + edad + religion + nivel_educ_rec + estatus_subj, data = latbaro_proc)
 
 
 #Interacciones por separado
 
-inter1 <- lm(confpol ~ conf_gen_rec * perc_sitecon + reduc_corrup_rec + just_distr_rec + sexo_mujer + grupo_etario + religion + nivel_educ_rec + estatus_subj + partpol + ideopol + sin_ideopol_rec, data = latbaro_proc)
+inter1 <- lm(confpol ~ conf_gen_rec * perc_sitecon + reduc_corrup_rec + just_distr_rec + sexo_mujer + edad + religion + nivel_educ_rec + estatus_subj, data = latbaro_proc)
 
-inter2 <- lm(confpol ~ perc_sitecon + reduc_corrup_rec * conf_gen_rec + just_distr_rec + sexo_mujer + grupo_etario + religion + nivel_educ_rec + estatus_subj + partpol + ideopol + sin_ideopol_rec, data = latbaro_proc)
+inter2 <- lm(confpol ~ perc_sitecon + reduc_corrup_rec * conf_gen_rec + just_distr_rec + sexo_mujer + edad + religion + nivel_educ_rec + estatus_subj, data = latbaro_proc)
 
-inter3 <- lm(confpol ~ perc_sitecon + reduc_corrup_rec + just_distr_rec * conf_gen_rec + sexo_mujer + grupo_etario + religion + nivel_educ_rec + estatus_subj + partpol + ideopol + sin_ideopol_rec, data = latbaro_proc)
+inter3 <- lm(confpol ~ sitecon_full + reduc_corrup_rec + just_distr_rec*conf_gen_rec + sexo_mujer + edad + religion + nivel_educ_rec + estatus_subj, data = latbaro_proc)
 
- saveRDS(desempeño_simple, file = "C:/Users/jpdia/OneDrive/Documents/GitHub/tesis-pregrado/IPO/input/proc/desempeño_simple.rds")
- 
- saveRDS(desempeño_confianza_simple, file = "C:/Users/jpdia/OneDrive/Documents/GitHub/tesis-pregrado/IPO/input/proc/desempeño_confianza_simple.rds")
- 
- saveRDS(desempeño_confianza_multiple, file = "C:/Users/jpdia/OneDrive/Documents/GitHub/tesis-pregrado/IPO/input/proc/desempeño_confianza_multiple.rds")
- 
- saveRDS(inter1, file = "C:/Users/jpdia/OneDrive/Documents/GitHub/tesis-pregrado/IPO/input/proc/inter1.rds")
- saveRDS(inter2, file = "C:/Users/jpdia/OneDrive/Documents/GitHub/tesis-pregrado/IPO/input/proc/inter2.rds")
- saveRDS(inter3, file = "C:/Users/jpdia/OneDrive/Documents/GitHub/tesis-pregrado/IPO/input/proc/inter3.rds")
+
 
 
 #7.3 Tabla de regresión----
 
-nombres_modelos <-  c(
-  "Intercepto", "Perc. situación económica nacional", "Progreso en corrupción", "Justicia distributiva", "Conf. generalizada", "Sexo", "Edad: 26-40", "Edad: 41-60", "Edad: > 61", "Religión: Católico", "Religión: No católico", "Universitario", "ESS: Clase Media", "ESS: Clase Alta/Media alta", "Partido: Oposición", "Partido: Otro/No menciona", "Posición eje izquierda-derecha", "Sin posición eje izquierda-derecha")
 
 
 sjPlot::tab_model(
@@ -479,14 +458,127 @@ sjPlot::tab_model(
   string.est = "**$\\beta$**",
   show.se = TRUE,
   string.se = "**se**",
+  title = ""
+)
+
+
+sjPlot::tab_model(
+  list(inter1, inter2, inter3),
+  show.ci=FALSE, 
+  p.style = "stars", 
+  dv.labels = c("Modelo 4", "Modelo 5", "Modelo 6"),
+  string.pred = "Predictores", 
+  string.est = "**$\\beta$**",
+  show.se = TRUE,
+  string.se = "**se**",
+  title = ""
+)
+
+```
+
+
+
+```{r}
+
+#8. Chequeo de supuestos ----
+
+#8.1 Observaciones influyentes ----
+
+n<- nobs(desempeño_confianza_multiple) #n de observaciones
+k<- length(coef(desempeño_confianza_multiple)) # n de parametros
+dcook<- 4/(n-k-1) #punt de corte
+
+final <- broom::augment_columns(desempeño_confianza_multiple,data = latbaro_proc)
+final$id <- as.numeric(row.names(final))
+# identify obs with Cook's D above cutoff
+ggplot(final, aes(id, .cooksd))+
+geom_bar(stat="identity", position="identity")+
+xlab("Obs. Number")+ylab("Cook's distance")+
+geom_hline(yintercept=dcook)+
+geom_text(aes(label=ifelse((.cooksd>dcook),id,"")),
+vjust=-0.2, hjust=0.5)
+
+ident<- final %>% filter(.cooksd>dcook)
+latbaro_final <- final %>% filter(!(id %in% ident$id))
+
+#8.2 Modelos sin OI----
+
+econ <- lm(confpol ~ perc_sitecon, data = latbaro_final)
+
+econpres <- lm(confpol ~ perc_sitecon, data = latbaro_final)
+
+frq(latbaro_final$sitecon_act)
+frq(latbaro_final$sitecon_fut)
+frq(latbaro_final$sitecon_comp)
+
+corrup <- lm(confpol ~ reduc_corrup_rec, data = latbaro_final)
+
+justdist <- lm(confpol ~ just_distr_rec, data = latbaro_final)
+
+confgen <- lm(confpol ~ conf_gen_rec, data = latbaro_final)
+
+sexo <- lm(confpol ~ sexo_mujer, data = latbaro_final)
+
+edad <- lm(confpol ~ edad, data = latbaro_final)
+
+religion <- lm(confpol ~ religion, data = latbaro_final)
+
+niveleduc <- lm(confpol ~ nivel_educ_rec, data = latbaro_final)
+
+estatus <- lm(confpol ~ estatus_subj, data = latbaro_final)
+
+partpol <- lm(confpol ~ partpol, data = latbaro_final)
+
+
+desempeño_simple <- lm(confpol ~ perc_sitecon + reduc_corrup_rec + just_distr_rec, data = latbaro_final)  
+
+desempeño_confianza_simple <- lm(confpol ~ perc_sitecon + reduc_corrup_rec + just_distr_rec + conf_gen_rec, data = latbaro_final)
+
+desempeño_confianza_multiple <- lm(confpol ~ perc_sitecon + reduc_corrup_rec + just_distr_rec + conf_gen_rec + sexo_mujer + edad + religion + nivel_educ_rec + estatus_subj, data = latbaro_final)
+
+
+#Calcular modelos de interacción
+
+inter1 <- lm(confpol ~ perc_sitecon*conf_gen_rec + reduc_corrup_rec + just_distr_rec + sexo_mujer + edad + religion + nivel_educ_rec + estatus_subj, data = latbaro_final)
+
+inter2 <- lm(confpol ~ perc_sitecon + reduc_corrup_rec*conf_gen_rec + just_distr_rec + sexo_mujer + edad + religion + nivel_educ_rec + estatus_subj, data = latbaro_final)
+
+inter3 <-lm(confpol ~ perc_sitecon + reduc_corrup_rec + just_distr_rec*conf_gen_rec + sexo_mujer + edad + religion + nivel_educ_rec + estatus_subj, data = latbaro_final)
+
+
+##Guardar BBDD
+
+saveRDS(desempeño_simple, file = "C:/Users/jpdia/OneDrive/Documents/GitHub/tesis-pregrado/IPO/input/proc/desempeño_simple.rds")
+
+ saveRDS(desempeño_confianza_simple, file = "C:/Users/jpdia/OneDrive/Documents/GitHub/tesis-pregrado/IPO/input/proc/desempeño_confianza_simple.rds")
+ 
+ saveRDS(desempeño_confianza_multiple, file = "C:/Users/jpdia/OneDrive/Documents/GitHub/tesis-pregrado/IPO/input/proc/desempeño_confianza_multiple.rds")
+
+  saveRDS(inter1, file = "C:/Users/jpdia/OneDrive/Documents/GitHub/tesis-pregrado/IPO/input/proc/inter1.rds")
+ saveRDS(inter2, file = "C:/Users/jpdia/OneDrive/Documents/GitHub/tesis-pregrado/IPO/input/proc/inter2.rds")
+ saveRDS(inter3, file = "C:/Users/jpdia/OneDrive/Documents/GitHub/tesis-pregrado/IPO/input/proc/inter3.rds")
+
+#Crear tablas modelos sin OI 
+ 
+nombres_modelos <-  c(
+  "Intercepto", "Perc. situación económica nacional", "Progreso en corrupción", "Justicia distributiva", "Conf. generalizada", "Sexo", "Edad", "Religión: Católico", "Religión: No católico", "Universitario", "ESS: Clase Media", "ESS: Clase Alta/Media alta") 
+ 
+sjPlot::tab_model(
+  list(desempeño_simple, desempeño_confianza_simple, desempeño_confianza_multiple),
+  show.ci=FALSE, 
+  p.style = "stars", 
+  dv.labels = c("Modelo 1", "Modelo 2", "Modelo 3"),
+  string.pred = "Predictores", 
+  string.est = "**$\\beta$**",
+  show.se = TRUE,
   pred.labels = nombres_modelos,
+  string.se = "**se**",
   title = "",
-   file = "C:/Users/jpdia/OneDrive/Documents/GitHub/tesis-pregrado/IPO/output/tables/tabla_regresiones.html"
+  file = "C:/Users/jpdia/OneDrive/Documents/GitHub/tesis-pregrado/IPO/output/tables/tabla_regresiones.html"
 )
 
 nombres_modelos_inter <-  c(
-  "Intercepto", "Conf. generalizada", "Perc. situación económica nacional", "Progreso en corrupción", "Justicia distributiva", "Sexo", "Edad: 26-40", "Edad: 41-60", "Edad: > 61", "Religión: Católico", "Religión: No católico", "Universitario", "ESS: Clase Media", "ESS: Clase Alta/Media alta", "Partido: Oposición", "Partido: Otro/No menciona", "Posición eje izquierda-derecha", "Sin posición eje izquierda-derecha", "Perc. situación económica X Conf. generalizada", "Prog. corrupción X Conf. generalizada", "Just. distributiva X Conf. generalizada" )
-
+  "Intercepto", "Perc. situación económica nacional", "Conf. generalizada", "Progreso en corrupción", "Justicia distributiva", "Sexo", "Edad", "Religión: Católico", "Religión: No católico", "Universitario", "ESS: Clase Media", "ESS: Clase Alta/Media alta", "Perc. situación económica x Conf. generalizada", "Prog. corrupción x Conf. generalizada", "Just. distributiva X Conf. generalizada" )
 
 sjPlot::tab_model(
   list(inter1, inter2, inter3),
@@ -502,8 +594,140 @@ sjPlot::tab_model(
   file = "C:/Users/jpdia/OneDrive/Documents/GitHub/tesis-pregrado/IPO/output/tables/tabla_interacciones.html"
 )
 
-```
 
+#10.2 Linealidad
+
+
+linealidad_econ <- ggplot(econ, aes(.fitted, .resid)) +
+  geom_point() +
+  geom_hline(yintercept = 0) +
+  geom_smooth(se = TRUE) +
+  labs(title = "Econ")
+
+linealidad_corrup <- ggplot(corrup, aes(.fitted, .resid)) +
+  geom_point() +
+  geom_hline(yintercept = 0) +
+  geom_smooth(se = TRUE) +
+  labs(title = "corrup")
+
+linealidad_justdist <- ggplot(justdist, aes(.fitted, .resid)) +
+  geom_point() +
+  geom_hline(yintercept = 0) +
+  geom_smooth(se = TRUE) +
+  labs(title = "justdist")
+
+linealidad_confgen <- ggplot(confgen, aes(.fitted, .resid)) +
+  geom_point() +
+  geom_hline(yintercept = 0) +
+  geom_smooth(se = TRUE) +
+  labs(title = "cofgen")
+
+linealidad_edad <- ggplot(edad, aes(.fitted, .resid)) +
+  geom_point() +
+  geom_hline(yintercept = 0) +
+  geom_smooth(se = TRUE) +
+  labs(title = "Edad")
+
+linealidad_religion <- ggplot(religion, aes(.fitted, .resid)) +
+  geom_point() +
+  geom_hline(yintercept = 0) +
+  geom_smooth(se = TRUE) +
+  labs(title = "Religión")
+
+linealidad_niveleduc <- ggplot(niveleduc, aes(.fitted, .resid)) +
+  geom_point() +
+  geom_hline(yintercept = 0) +
+  geom_smooth(se = TRUE) +
+  labs(title = "niveleduc")
+
+linealidad_ess <- ggplot(estatus, aes(.fitted, .resid)) +
+  geom_point() +
+  geom_hline(yintercept = 0) +
+  geom_smooth(se = TRUE) +
+  labs(title = "ESS")
+
+linealidad_partpol <- ggplot(partpol, aes(.fitted, .resid)) +
+  geom_point() +
+  geom_hline(yintercept = 0) +
+  geom_smooth(se = TRUE) +
+  labs(title = "Partpol")
+
+linealidad_simple <- ggplot(desempeño_simple, aes(.fitted, .resid)) +
+  geom_point() +
+  geom_hline(yintercept = 0) +
+  geom_smooth(se = TRUE) 
+
+linealidad_doble <- ggplot(desempeño_confianza_simple, aes(.fitted, .resid)) +
+  geom_point() +
+  geom_hline(yintercept = 0) +
+  geom_smooth(se = TRUE) 
+
+linealidad_multiple <- ggplot(desempeño_confianza_multiple, aes(.fitted, .resid)) +
+  geom_point() +
+  geom_hline(yintercept = 0) +
+  geom_smooth(se = TRUE) +
+  labs(title = "Multiple")
+
+linealidad_inter <- ggplot(inter1, aes(.fitted, .resid)) +
+  geom_point() +
+  geom_hline(yintercept = 0) +
+  geom_smooth(se = TRUE) +
+  labs(title = "Inter")
+
+
+
+
+linealidad_simple
+linealidad_doble
+linealidad_multiple
+linealidad_inter
+linealidad_econ
+linealidad_corrup
+linealidad_justdist
+linealidad_confgen
+linealidad_niveleduc
+linealidad_edad
+linealidad_religion
+linealidad_ess
+linealidad_inter
+
+
+#10.3 Homogeneidad de varianza (homocedasticidad)
+
+lmtest::bptest(desempeño_confianza_multiple)
+lmtest::bptest(inter1)
+lmtest::bptest(inter2)
+
+
+
+##Modelos con errores estandar robustos
+
+multiple_rob <- coeftest(desempeño_confianza_multiple, vcov=vcovHC)
+inter1_rob <- coeftest(inter1, vcov=vcovHC)
+inter2_rob <- coeftest(inter2, vcov=vcovHC)
+inter3_rob <- coeftest(inter3, vcov=vcovHC)
+
+sjPlot::tab_model(
+  list(multiple_rob, inter1_rob, inter2_rob, inter3_rob),
+  show.ci=FALSE, 
+  p.style = "stars", 
+  string.pred = "Predictores", 
+  string.est = "**$\\beta$**",
+  show.se = TRUE,
+  string.se = "**se**",
+  title = ""
+) 
+
+#Al no haber grandes diferencias entre el modelo con errores robustos y el original, podemos afirmar que la heterocedasticidad no es perjudicial para nuestros modelos.
+
+#10.4 Multicolinealidad
+
+car::vif(desempeño_confianza_multiple)
+car::vif(inter1)
+car::vif(inter2)
+car::vif(inter3)
+
+```
 
 
 ```{r}
@@ -538,7 +762,7 @@ ggsave("C:/Users/jpdia/OneDrive/Documents/GitHub/tesis-pregrado/IPO/output/graph
 ```{r}
 #9 Gráfico de interacción
 
-graf_interaccion <- interact_plot(inter1, 
+graf_interaccion_sitecon <- interact_plot(inter1, 
                                   pred = "perc_sitecon", 
                                   modx = "conf_gen_rec", 
                                   plot.points = FALSE,
@@ -549,12 +773,31 @@ graf_interaccion <- interact_plot(inter1,
                                   )
 
 
-graf_interaccion <- graf_interaccion +
+graf_interaccion_justdist <- interact_plot(inter3, 
+                                  pred = "conf_gen_rec", 
+                                  modx = "just_distr_rec", 
+                                  plot.points = FALSE,
+                                  x.label = "Confianza generalizada",
+                                  y.label = "Confianza política",
+                                  modx.labels = c("No hay justicia distributiva", "Si hay justicia distributiva"),
+                                  legend.main = "Justicia distributiva"
+                                  )
+
+
+graf_interaccion_sitecon
+graf_interaccion_justdist
+
+
+graf_interaccion_sitecon <- graf_interaccion_sitecon +
   theme_minimal()
 
-graf_interaccion
+graf_interaccion_justdist <- graf_interaccion_justdist +
+  theme_minimal()
 
-graf_interaccion <- graf_interaccion +
+graf_interaccion_sitecon
+graf_interaccion_justdist
+
+graf_interaccion_sitecon <- graf_interaccion_sitecon +
   theme(
     plot.title = element_text(size = 20, color = "black"),       # título del gráfico
     axis.title = element_text(size = 16, color = "black"),       # títulos ejes X e Y
@@ -563,7 +806,21 @@ graf_interaccion <- graf_interaccion +
     legend.text = element_text(size = 14, color = "black")       # texto de leyenda
   )
 
-graf_interaccion_p <- graf_interaccion +
+graf_interaccion_justdist <- graf_interaccion_justdist +
+  theme(
+    plot.title = element_text(size = 20, color = "black"),       # título del gráfico
+    axis.title = element_text(size = 16, color = "black"),       # títulos ejes X e Y
+    axis.text = element_text(size = 14, color = "black"),        # etiquetas de ejes
+    legend.title = element_text(size = 16, color = "black"),     # título leyenda
+    legend.text = element_text(size = 14, color = "black")       # texto de leyenda
+  )
+
+
+graf_interaccion_sitecon
+graf_interaccion_justdist
+
+
+graf_interaccion_sitecon_p <- graf_interaccion_sitecon +
   theme(
     plot.title = element_text(size = 26, color = "black"),       # título del gráfico
     axis.title = element_text(size = 28, color = "black"),       # títulos ejes X e Y
@@ -572,11 +829,23 @@ graf_interaccion_p <- graf_interaccion +
     legend.text = element_text(size = 28, color = "black")       # texto de leyenda
   )
 
-graf_interaccion
+graf_interaccion_justdist_p <- graf_interaccion_justdist +
+  theme(
+    plot.title = element_text(size = 26, color = "black"),       # título del gráfico
+    axis.title = element_text(size = 28, color = "black"),       # títulos ejes X e Y
+    axis.text = element_text(size = 28, color = "black"),        # etiquetas de ejes
+    legend.title = element_text(size = 28, color = "black"),     # título leyenda
+    legend.text = element_text(size = 28, color = "black")       # texto de leyenda
+  )
 
-ggsave("C:/Users/jpdia/OneDrive/Documents/GitHub/tesis-pregrado/IPO/output/graphs/interaccion.png", graf_interaccion, width = 6, height = 4, dpi = 300)
+graf_interaccion_sitecon_p
+graf_interaccion_justdist_p
 
-ggsave("C:/Users/jpdia/OneDrive/Documents/GitHub/tesis-pregrado/IPO/output/graphs/interaccion-p.png", graf_interaccion_p, width = 6, height = 4, dpi = 300)
+ggsave("C:/Users/jpdia/OneDrive/Documents/GitHub/tesis-pregrado/IPO/output/graphs/interaccion_sitecon.png", graf_interaccion_sitecon, width = 6, height = 4, dpi = 300)
+ggsave("C:/Users/jpdia/OneDrive/Documents/GitHub/tesis-pregrado/IPO/output/graphs/interaccion_justdist.png", graf_interaccion_justdist, width = 6, height = 4, dpi = 300)
+
+ggsave("C:/Users/jpdia/OneDrive/Documents/GitHub/tesis-pregrado/IPO/output/graphs/interaccion_sitecon-p.png", graf_interaccion_sitecon_p, width = 6, height = 4, dpi = 300)
+ggsave("C:/Users/jpdia/OneDrive/Documents/GitHub/tesis-pregrado/IPO/output/graphs/interaccion_justdist-p.png", graf_interaccion_justdist_p, width = 6, height = 4, dpi = 300)
 
 ```
 

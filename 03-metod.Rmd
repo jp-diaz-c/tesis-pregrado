@@ -2,7 +2,7 @@
 
 ## Datos
 
-En específico, se trabajó sobre datos secundarios a partir de indicadores que serán extraídos de la encuesta Latinobarómetro, en su ola correspondiente al año 2024. Para el caso chileno, esta encuesta presenta una muestra de 1200 entrevistados, los cuales fueron seleccionados mediante un muestreo probabilístico en tres etapas y representan al 100% de la población adulta en el país. Estos datos fueron levantados entre el 23 de agosto y el 13 de septiembre mediante entrevistas presenciales en formato cara a cara.
+En específico, se trabajó sobre datos secundarios a partir de indicadores que serán extraídos de la Encuesta Latinobarómetro, en su ola correspondiente al año 2024. Para el caso chileno, esta encuesta presenta una muestra de 1200 entrevistados, los cuales fueron seleccionados mediante un muestreo probabilístico en tres etapas y representan al 100% de la población adulta en el país. Estos datos fueron levantados entre el 23 de agosto y el 13 de septiembre mediante entrevistas presenciales en formato cara a cara.
 
 ## Variables
 

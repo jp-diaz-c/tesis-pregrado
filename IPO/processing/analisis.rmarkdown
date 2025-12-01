@@ -220,8 +220,6 @@ cor.test(latbaro_proc$confpol, latbaro_proc$just_distr_rec, method = "pearson")
 
 #5.4 Confianza generalizada----
 
-#Grafico
-
 latbaro_proc |> 
   group_by(conf_gen_rec) |> 
   descr(confpol)
@@ -229,7 +227,60 @@ latbaro_proc |>
 cor.test(latbaro_proc$confpol, latbaro_proc$conf_gen_rec, method = "pearson")
 
 
-resumen <- latbaro_descr %>% group_by(conf_gen_rec) %>%
+  
+```
+
+```{r}
+
+#Grafico----
+
+
+
+latbaro_graf <- latbaro_proc
+
+latbaro_graf$conf_gen_rec <- factor(latbaro_graf$conf_gen_rec,
+                                         levels = c(0, 1),
+                                         labels = c("Sin conf. generalizada", "Con conf. generalizada"))
+
+latbaro_graf$conf_gen_rec <- set_label(latbaro_graf$conf_gen_rec, "Confianza generalizada")
+
+#3.1 Confianza en las instituciones----
+
+
+latbaro_graf$confpol <- set_label(latbaro_graf$confpol, "Indice de confianza política")
+
+
+#3.3 Situación económica----
+
+latbaro_graf$perc_sitecon <- set_label(latbaro_graf$perc_sitecon, "Indice de percepción de la situación económica nacional")
+
+
+#3.4 Percepción de corrupción----
+
+frq(latbaro_graf$reduc_corrup_rec)
+
+latbaro_graf$reduc_corrup_rec <- factor(latbaro_graf$reduc_corrup_rec,
+                                         levels = c(0, 1),
+                                         labels = c("Poco/Nada", "Mucho/Algo"))
+latbaro_graf$reduc_corrup_rec <- set_label(latbaro_graf$reduc_corrup_rec, "Progreso en reducir la corrupción política")
+
+frq(latbaro_graf$reduc_corrup_rec)
+
+#3.5 Percepción distribución de ingresos----
+
+frq(latbaro_graf$just_distr_rec)
+
+latbaro_graf$just_distr_rec <- factor(latbaro_graf$just_distr_rec,
+                                         levels = c(0, 1),
+                                         labels = c("Injusta/Muy injusta", "Muy justa/Justa"))
+latbaro_graf$just_distr_rec <- set_label(latbaro_graf$just_distr_rec, "Justicia en la distribución de ingresos")
+
+frq(latbaro_graf$just_distr_rec)
+
+
+# Grafico 1----
+
+resumen_confgen <- latbaro_graf %>% group_by(conf_gen_rec) %>%
   summarise(n = n(),
             mean = mean(confpol, na.rm = TRUE),
             sd = sd(confpol, na.rm = TRUE),
@@ -237,10 +288,107 @@ resumen <- latbaro_descr %>% group_by(conf_gen_rec) %>%
             lower = mean - 1.96 * se,
             upper = mean + 1.96 * se)
 
-p3 <- ggplot(resumen, aes(x = conf_gen_rec, y = mean, fill = conf_gen_rec)) +
+resumen_justdist <- latbaro_graf %>% group_by(just_distr_rec) %>%
+  summarise(n = n(),
+            mean = mean(confpol, na.rm = TRUE),
+            sd = sd(confpol, na.rm = TRUE),
+            se = sd / sqrt(n),
+            lower = mean - 1.96 * se,
+            upper = mean + 1.96 * se)
+
+resumen_corrup <- latbaro_graf %>% group_by(reduc_corrup_rec) %>%
+  summarise(n = n(),
+            mean = mean(confpol, na.rm = TRUE),
+            sd = sd(confpol, na.rm = TRUE),
+            se = sd / sqrt(n),
+            lower = mean - 1.96 * se,
+            upper = mean + 1.96 * se)
+
+
+graf_congen <- ggplot(resumen_confgen, aes(x = conf_gen_rec, y = mean, fill = conf_gen_rec)) +
   geom_col() +
- l
+  labs(
+    x = " ",                               # elimina o cambia el título del eje x
+    y = "Promedio confpol",           # título eje y
+    fill = "Confianza generalizada"    # título de la leyenda
+  ) +
+  theme_minimal() +                        # puedes usar otro tema si prefieres
+  theme(
+    axis.text.x = element_blank(),         # oculta los nombres en el eje x
+    axis.ticks.x = element_blank(),        # elimina las marcas del eje x
+    plot.title = element_text(hjust = 0.5, face = "bold")
+  )
+
+graf_justdist <- ggplot(resumen_justdist, aes(x = just_distr_rec, y = mean, fill = just_distr_rec)) +
+  geom_col() +
+  labs(
+    x = " ",                               # elimina o cambia el título del eje x
+    y = "Promedio confpol",           # título eje y
+    fill = "Justicia distributiva"    # título de la leyenda
+  ) +
+  theme_minimal() +                        # puedes usar otro tema si prefieres
+  theme(
+    axis.text.x = element_blank(),         # oculta los nombres en el eje x
+    axis.ticks.x = element_blank(),        # elimina las marcas del eje x
+    plot.title = element_text(hjust = 0.5, face = "bold")
+  )
+
+graf_corrup <- ggplot(resumen_corrup, aes(x = reduc_corrup_rec, y = mean, fill = reduc_corrup_rec)) +
+  geom_col() +
+  labs(
+    x = " ",                               # elimina o cambia el título del eje x
+    y = "Promedio confpol",           # título eje y
+    fill = "Progreso corrupción"    # título de la leyenda
+  ) +
+  theme_minimal() +                        # puedes usar otro tema si prefieres
+  theme(
+    axis.text.x = element_blank(),         # oculta los nombres en el eje x
+    axis.ticks.x = element_blank(),        # elimina las marcas del eje x
+    plot.title = element_text(hjust = 0.5, face = "bold")
+  )
+
+graf_corrup
+
+graf_justdist
+
+graf_congen
+
+graf_corrup <- graf_corrup +
+  theme(
+    plot.title = element_text(size = 26, color = "black"),       # título del gráfico
+    axis.title = element_text(size = 18, color = "black"),       # títulos ejes X e Y
+    axis.text = element_text(size = 18, color = "black"),        # etiquetas de ejes
+    legend.title = element_text(size = 18, color = "black"),     # título leyenda
+    legend.text = element_text(size = 16, color = "black")       # texto de leyenda
+  )
+
+graf_justdist <- graf_justdist +
+  theme(
+    plot.title = element_text(size = 26, color = "black"),       # título del gráfico
+    axis.title = element_text(size = 18, color = "black"),       # títulos ejes X e Y
+    axis.text = element_text(size = 18, color = "black"),        # etiquetas de ejes
+    legend.title = element_text(size = 18, color = "black"),     # título leyenda
+    legend.text = element_text(size = 16, color = "black")       # texto de leyenda
+  )
+
+graf_congen <- graf_congen +
+  theme(
+    plot.title = element_text(size = 26, color = "black"),       # título del gráfico
+    axis.title = element_text(size = 20, color = "black"),       # títulos ejes X e Y
+    axis.text = element_text(size = 20, color = "black"),        # etiquetas de ejes
+    legend.title = element_text(size = 20, color = "black"),     # título leyenda
+    legend.text = element_text(size = 18, color = "black")       # texto de leyenda
+  )
+
+ggsave("C:/Users/jpdia/OneDrive/Documents/GitHub/tesis-pregrado/IPO/output/graphs/graf_corrup.png", graf_corrup, width = 6, height = 4, dpi = 100)
+
+ggsave("C:/Users/jpdia/OneDrive/Documents/GitHub/tesis-pregrado/IPO/output/graphs/graf_justdist.png", graf_justdist, width = 6, height = 4, dpi = 100)
+
+ggsave("C:/Users/jpdia/OneDrive/Documents/GitHub/tesis-pregrado/IPO/output/graphs/graf_congen.png", graf_congen, width = 6, height = 4, dpi = 100)
+
+
 ```
+
 
 ```{r}
 
@@ -290,11 +438,11 @@ dev.off()
 
 #7. Calcular modelos----
 
-desempeño_simple <- lm(confpol ~ perc_sitecon + reduc_corrup_rec + just_distr_rec, data = latbaro_proc) 
+desempeño_simple <- lm(confpol ~ perc_sitecon + reduc_corrup_rec + just_distr_rec, data = latbaro_proc)  
 
 desempeño_confianza_simple <- lm(confpol ~ perc_sitecon + reduc_corrup_rec + just_distr_rec + conf_gen_rec, data = latbaro_proc)
 
-desempeño_confianza_multiple <- lm(confpol ~ perc_sitecon + reduc_corrup_rec + just_distr_rec + conf_gen_rec + sexo_mujer + grupo_etario + religion + nivel_educ_rec + estatus_subj + partpol + ideopol + sin_ideopol_rec, data = latbaro_proc)
+desempeño_confianza_multiple <- lm(confpol ~ perc_sitecon + reduc_corrup_rec + just_distr_rec + conf_gen_rec + sexo_mujer + grupo_etario + religion + nivel_educ_rec + estatus_subj + partpol + ideopol, data = latbaro_proc)
 
 
 #Interacciones por separado
@@ -331,9 +479,7 @@ sjPlot::tab_model(
   string.est = "**$\\beta$**",
   show.se = TRUE,
   string.se = "**se**",
-  pred.labels = nombres_modelos,
-  title = "",
-   file = "C:/Users/jpdia/OneDrive/Documents/GitHub/tesis-pregrado/IPO/output/tables/tabla_regresiones.html"
+  title = ""
 )
 
 nombres_modelos_inter <-  c(
@@ -431,5 +577,35 @@ ggsave("C:/Users/jpdia/OneDrive/Documents/GitHub/tesis-pregrado/IPO/output/graph
 ggsave("C:/Users/jpdia/OneDrive/Documents/GitHub/tesis-pregrado/IPO/output/graphs/interaccion-p.png", graf_interaccion_p, width = 6, height = 4, dpi = 300)
 
 ```
+
+
+```{r}
+
+#10. Chequeo de supuestos ----
+
+#10.1 Linealidad
+
+linealidad <- ggplot(desempeño_confianza_multiple, aes(.fitted, .resid)) +
+  geom_point() +
+  geom_hline(yintercept = 0) +
+  geom_smooth(se = TRUE)
+
+linealidad
+
+## Existe linealidad
+
+#10.2 Homogeneidad de varianza (homocedasticidad)
+
+lmtest::bptest(desempeño_confianza_multiple)
+
+##No hay heterocedasticidad
+
+#10.3 Multicolinealidad
+
+car::vif(desempeño_confianza_multiple)
+
+
+```
+
 
 
