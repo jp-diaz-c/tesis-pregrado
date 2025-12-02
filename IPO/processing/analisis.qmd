@@ -760,6 +760,117 @@ ggsave("C:/Users/jpdia/OneDrive/Documents/GitHub/tesis-pregrado/IPO/output/graph
 ```
 
 ```{r}
+
+#Descriptivos sin OI----
+
+latbaro_descr <- latbaro_final |> 
+   select(confpol, perc_sitecon, reduc_corrup_rec, just_distr_rec, conf_gen_rec, sexo_mujer, edad, religion, nivel_educ_rec, estatus_subj)
+
+#Etiquetas
+#3.1 Confianza en las instituciones----
+
+
+latbaro_descr$confpol <- set_label(latbaro_descr$confpol, "Indice de confianza política")
+
+
+
+#¿cuánta confianza tiene usted en ellas: mucha (1), algo (2), poca (3) o ninguna (4) confianza en...? 
+
+#3.2 Confianza generalizada----
+
+latbaro_descr$conf_gen_rec <- factor(latbaro_descr$conf_gen_rec,
+                                         levels = c(0, 1),
+                                         labels = c("Uno nunca es lo suficientemente cuidadoso en el trato con los demás", "Se puede confiar en la mayoría de las personas"))
+latbaro_descr$conf_gen_rec <- set_label(latbaro_descr$conf_gen_rec, "Confianza generalizada")
+
+#3.3 Situación económica----
+
+latbaro_descr$perc_sitecon <- set_label(latbaro_descr$perc_sitecon, "Percepción de la situación económica nacional")
+
+
+#3.4 Percepción de corrupción----
+
+frq(latbaro_descr$reduc_corrup_rec)
+
+latbaro_descr$reduc_corrup_rec <- factor(latbaro_descr$reduc_corrup_rec,
+                                         levels = c(0, 1),
+                                         labels = c("Poco/Nada", "Mucho/Algo"))
+latbaro_descr$reduc_corrup_rec <- set_label(latbaro_descr$reduc_corrup_rec, "Progreso en reducir la corrupción política")
+
+frq(latbaro_descr$reduc_corrup_rec)
+
+#3.5 Percepción distribución de ingresos----
+
+frq(latbaro_descr$just_distr_rec)
+
+latbaro_descr$just_distr_rec <- factor(latbaro_descr$just_distr_rec,
+                                         levels = c(0, 1),
+                                         labels = c("Injusta/Muy injusta", "Muy justa/Justa"))
+latbaro_descr$just_distr_rec <- set_label(latbaro_descr$just_distr_rec, "Justicia en la distribución de ingresos")
+
+frq(latbaro_descr$just_distr_rec)
+
+#3.6 Variables de control----
+
+latbaro_descr$sexo_mujer <- factor(latbaro_descr$sexo_mujer,
+                                         levels = c(0, 1),
+                                         labels = c("Hombre", "Mujer"))
+latbaro_descr$sexo_mujer <- set_label(latbaro_descr$sexo_mujer, "Sexo")
+
+
+latbaro_descr$edad <- set_label(latbaro_descr$edad, "Edad")
+
+
+latbaro_descr$religion <- factor(latbaro_descr$religion,
+                                         levels = c(1, 2, 3),
+                                         labels = c("Ninguna/Ateo/Agnóstico", "Católica", "No católica"))
+latbaro_descr$religion <- set_label(latbaro_descr$religion, "Religión")
+
+
+
+latbaro_descr$nivel_educ_rec <- factor(latbaro_descr$nivel_educ_rec,
+                                         levels = c(0, 1),
+                                         labels = c("Sin universitario completo", "Con universitario completo"))
+latbaro_descr$nivel_educ_rec <- set_label(latbaro_descr$nivel_educ_rec, "Nivel educacional")
+
+
+ 
+
+latbaro_descr$estatus_subj <- factor(latbaro_descr$estatus_subj,
+                                         levels = c(1, 2, 3),
+                                         labels = c("Clase Baja/Media baja", "Clase Media", "Clase Media alta/Alta"))
+
+latbaro_descr$estatus_subj <- set_label(latbaro_descr$estatus_subj, "Estatus social subjetivo")
+
+#Tabla
+
+tabla_descriptivos <- tbl_summary(latbaro_descr,
+    statistic = list(
+      all_continuous() ~ "{mean} ({sd})",
+      all_categorical() ~ "{n} ({p}%)"
+    ),
+    digits = list(
+      all_continuous() ~ 2,
+      all_categorical() ~ 1
+    ),
+     missing = "no"
+  ) |> 
+  bold_labels() |> 
+  modify_header(label ~ "**Variable**") 
+
+
+tabla_desc_df <- tabla_descriptivos |> 
+  as_tibble() 
+
+tabla_desc_df <- tabla_desc_df |> 
+  mutate(across(everything(), ~replace(., is.na(.), "")))
+
+ saveRDS(tabla_desc_df, file = "C:/Users/jpdia/OneDrive/Documents/GitHub/tesis-pregrado/IPO/output/tables/tabla_descriptiva_final.rds")
+
+```
+
+
+```{r}
 #9 Gráfico de interacción
 
 graf_interaccion_sitecon <- interact_plot(inter1, 

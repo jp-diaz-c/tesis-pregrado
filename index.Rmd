@@ -1,10 +1,10 @@
 ---
 title: 'Factores asociados a la confianza política: una aproximación empírica a partir del caso chileno'
-subtitle: "Informe Seminario de Título II"
+subtitle: "Borrador final Memoria de Título"
 author: "Juan Pablo Díaz"
 date: "`r Sys.Date()`" # o para fecha actual: "`r Sys.Date()`"
 institution: "Universidad de Chile"
-degree: "Seminario / Memoria / Tesis de Grado - Carrera de Sociología"
+degree: "Memoria de Título - Carrera de Sociología"
 advisor: "Profesor/a guía: Juan Carlos Castillo"
 bibliography: [tesis.bib]
 csl: apa.csl
@@ -28,7 +28,6 @@ always_allow_html: true
 # Resumen {-}
 
 Pendiente
-
 
 # Agradecimientos {-}
 
